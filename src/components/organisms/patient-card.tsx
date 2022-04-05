@@ -11,9 +11,11 @@ import QRCode from "react-qr-code";
 
 type Props = {
   qrCodeValue: string | null;
+  name: string | null;
+  avatarImageUrl: string | null;
 };
 
-export const PatientCard = ({ qrCodeValue }: Props) => {
+export const PatientCard = ({ qrCodeValue, name, avatarImageUrl }: Props) => {
   return (
     <Center py={12}>
       <Box
@@ -68,10 +70,13 @@ export const PatientCard = ({ qrCodeValue }: Props) => {
           <Box paddingBottom={2} />
           <Stack mt={6} direction={"row"} spacing={4} align={"right"}>
             <Avatar
-              src={"https://avatars0.githubusercontent.com/u/1164541?v=4"}
+              src={
+                avatarImageUrl ??
+                "https://avatars0.githubusercontent.com/u/1164541?v=4"
+              }
             />
             <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-              <Text fontWeight={600}>鈴木 太郎 様</Text>
+              <Text fontWeight={600}>{name ?? "no name"} 様</Text>
               <Text color={"gray.500"}>No.&nbsp;{qrCodeValue}</Text>
             </Stack>
           </Stack>

@@ -2,10 +2,12 @@ import { Box, Grid, VStack } from "@chakra-ui/react";
 import * as React from "react";
 import { useState } from "react";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
+import { useAuth } from "../../hooks/use-auth";
 import { PatientCard } from "../organisms/patient-card";
 import { UpsertPatientCard } from "../organisms/upsert-patient-card";
 
 export const AppTemplate = () => {
+  const { name, avatarImageUrl } = useAuth();
   const [qrCodeValue, setQRCodeValue] = useState<string | null>(null);
   return (
     <Box textAlign="center" fontSize="xl">
@@ -13,22 +15,14 @@ export const AppTemplate = () => {
         <ColorModeSwitcher justifySelf="flex-end" />
         <VStack spacing={8}>
           {qrCodeValue ? (
-            <PatientCard qrCodeValue={qrCodeValue} />
+            <PatientCard
+              qrCodeValue={qrCodeValue}
+              name={name}
+              avatarImageUrl={avatarImageUrl}
+            />
           ) : (
             <UpsertPatientCard setQRCodeValue={setQRCodeValue} />
           )}
-          {/* <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link> */}
         </VStack>
       </Grid>
     </Box>

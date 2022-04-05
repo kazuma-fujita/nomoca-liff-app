@@ -1,26 +1,21 @@
+import Predictions from "@aws-amplify/predictions";
+import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Center,
-  Text,
-  Stack,
-  List,
-  ListItem,
-  ListIcon,
   Button,
-  useColorModeValue,
+  Center,
+  List,
+  ListIcon,
+  ListItem,
   Radio,
   RadioGroup,
+  Stack,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import { useCallback, useRef, useState } from "react";
-import { Camera } from "../atoms/camera";
 import Webcam from "react-webcam";
-import Predictions, {
-  AmazonAIPredictionsProvider,
-} from "@aws-amplify/predictions";
-import Amplify from "aws-amplify";
-import awsconfig from "../../aws-exports";
-import { type } from "os";
+import { Camera } from "../atoms/camera";
 
 type Props = {
   setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;

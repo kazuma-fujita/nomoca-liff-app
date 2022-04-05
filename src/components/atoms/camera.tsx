@@ -1,11 +1,6 @@
-import Predictions, {
-  AmazonAIPredictionsProvider,
-} from "@aws-amplify/predictions";
-import Amplify from "aws-amplify";
-import { useCallback, useRef, useState } from "react";
-import Webcam from "react-webcam";
 import { Buffer } from "buffer";
 import { LegacyRef } from "react";
+import Webcam from "react-webcam";
 
 // @ts-ignore
 window.Buffer = Buffer;

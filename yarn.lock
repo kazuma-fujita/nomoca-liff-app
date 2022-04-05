@@ -4324,6 +4324,471 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@liff/add-to-home-screen@2.19.0":
+  "integrity" "sha512-of7kYqVRzTrZyIzLKkWjOS2+1jwXE+AS9bMHh/ZOFeD+9v+8DZUc1anOJsI4Eh+esRr7HEOXCpYytv1ve8edsg=="
+  "resolved" "https://registry.npmjs.org/@liff/add-to-home-screen/-/add-to-home-screen-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/check-availability" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/open-window" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/analytics@2.19.0":
+  "integrity" "sha512-Dprx8ndlb7Yt0i2+6ZxCAb530ESyMvZDMEZn/eXi2n5a+f3VI3k39kPefgRUI8syKuVQzbEKbszOBnuvpt+7Uw=="
+  "resolved" "https://registry.npmjs.org/@liff/analytics/-/analytics-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/get-profile" "2.19.0"
+    "@liff/get-version" "2.19.0"
+    "@liff/is-logged-in" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/types" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/check-availability@2.19.0":
+  "integrity" "sha512-IUdr/xEG+cXOJvfVL9mfiBjGkLJkESUb8CKEwihuXDIPsfWUQchEgxsfErgwzu/GOAVl5R5Job93i96vIU8QcQ=="
+  "resolved" "https://registry.npmjs.org/@liff/check-availability/-/check-availability-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/get-version" "2.19.0"
+    "@liff/is-api-available" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/close-window@2.19.0":
+  "integrity" "sha512-omx0V1UvYYgr149SbO3QX6WxbnjiqWFlfVYT7u7QoV2kCjhxzdcGfpkkFyqSDnmTNKzdzBxcDLiGw5Ji8cf//Q=="
+  "resolved" "https://registry.npmjs.org/@liff/close-window/-/close-window-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/consts@2.19.0":
+  "integrity" "sha512-7amhio4kBUWzT+1Sru91Y9gsKfgMZPxt1p4clrWVxmlnPhoLKB0WMJLcsPE0py++cfp5ImS0C/div+OkPTgVhw=="
+  "resolved" "https://registry.npmjs.org/@liff/consts/-/consts-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/extensions@2.19.0":
+  "integrity" "sha512-X8F7DIbrn1wYbLGBzTnqBzxNyZ1/+wGnaG2zKpNDzae53+cfbjEGjDo/Sx1TO8B4PikM/2I85dkataglzrAFOA=="
+  "resolved" "https://registry.npmjs.org/@liff/extensions/-/extensions-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/add-to-home-screen" "2.19.0"
+    "@liff/check-availability" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/get-advertising-id" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/scan-code" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/get-advertising-id@2.19.0":
+  "integrity" "sha512-RTu/FlpRChNv/jE7zo45vD0ysa+5apk1P1QTj5VAIRutya15gyOowYPuqt+Tvj1cZD6ea9ukp/BsAXY/cAfBVQ=="
+  "resolved" "https://registry.npmjs.org/@liff/get-advertising-id/-/get-advertising-id-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/check-availability" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/get-friendship@2.19.0":
+  "integrity" "sha512-XKxofnSStxFBkSKe9jkBZz75IRSXSuGtWhEfuZLiDrfgjIRWVmCbEkc7K8hD4K/wASCzQNACU78jBbB7teITNg=="
+  "resolved" "https://registry.npmjs.org/@liff/get-friendship/-/get-friendship-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/server-api" "2.19.0"
+
+"@liff/get-language@2.19.0":
+  "integrity" "sha512-BG7AmvlHE2keBPddPR3+eQtX+t9JJg59OO1ylSmIw6Rib4w7UoB1WmW7I7InVLu7rnP1zJ4oPvt6PDgdJ2uH7w=="
+  "resolved" "https://registry.npmjs.org/@liff/get-language/-/get-language-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/get-line-version@2.19.0":
+  "integrity" "sha512-y6kyI/zzb3zBjpaYfOpECtzBQK+JE0dfVARTTWkZq5S6tEe+QubgFJ8PcIjxHR3SDSiEjpq7GoqHSiTH+6JXAg=="
+  "resolved" "https://registry.npmjs.org/@liff/get-line-version/-/get-line-version-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/get-os@2.19.0":
+  "integrity" "sha512-fbVguM7/E2kUnjOgKZAVNlXGC4GBnTcj/4dM/A00Sr/X+RVKzbrH6XmW3XbAbaks948I0TF8+/jor+wHbGTmOQ=="
+  "resolved" "https://registry.npmjs.org/@liff/get-os/-/get-os-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/get-profile@2.19.0":
+  "integrity" "sha512-ynfwktQN7iyg95sUgcZ9VcQJbMxmJmnjsjGxC5UITPSaBiKZwWpgWj01S4C+Gq2DH5m3+TzvqP6ZI2onmEPhLQ=="
+  "resolved" "https://registry.npmjs.org/@liff/get-profile/-/get-profile-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/server-api" "2.19.0"
+
+"@liff/get-version@2.19.0":
+  "integrity" "sha512-9ERenIsE3Xqq15WFCpcEJ6lpO0u7jI/mT+UATBAvlG21pDa+aDEjSRaKaa87+SYgGMXCweok6yP9MudTWrINLg=="
+  "resolved" "https://registry.npmjs.org/@liff/get-version/-/get-version-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/hooks@2.19.0":
+  "integrity" "sha512-uNqA7KyNk9kJ2y8YFmGrrTExDzGV7BYjGRDt1uaiF8vqDdecKH0mxZhQLWY/aSayIvss2k3bFpkIGT++OR8JMQ=="
+  "resolved" "https://registry.npmjs.org/@liff/hooks/-/hooks-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/init@2.19.0":
+  "integrity" "sha512-LUy4Iv6R6qx3d818A77eGta/1PbkUo8Hium6M/g/jr3wulgHwIP8Px1KWJM7j+GFLl2WLejGB+UfrIzT/sIKfA=="
+  "resolved" "https://registry.npmjs.org/@liff/init/-/init-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/extensions" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/hooks" "2.19.0"
+    "@liff/is-api-available" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-logged-in" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/login" "2.19.0"
+    "@liff/logout" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/ready" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/sub-window" "2.19.0"
+    "@liff/types" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/is-api-available@2.19.0":
+  "integrity" "sha512-qf+HNU7o3AdiMnPWfTyPLfOKrwQPLt4SO7CsJ6j3PGLmROwQIpmbEwhPM49fNoiHtsblvLJXPJwMR1dNp0UOcg=="
+  "resolved" "https://registry.npmjs.org/@liff/is-api-available/-/is-api-available-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-logged-in" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/is-in-client@2.19.0":
+  "integrity" "sha512-0TqQQKc1Q+0YMbytIaAHdKo9qUdQSOU4tK9B+56UlWQLqKLSk4dJV/nYZr8JTbNIqxQZ5OXpCaoe7CSxH0+3Dg=="
+  "resolved" "https://registry.npmjs.org/@liff/is-in-client/-/is-in-client-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/is-logged-in@2.19.0":
+  "integrity" "sha512-ZoVW2Nx+ZKxt1yPjGgN6fKUBXY9szD26M3cL+dSzrEZFktBbcJuTOuNqtI+5cJlsy+XnCqUO6f+vuo3X319KDg=="
+  "resolved" "https://registry.npmjs.org/@liff/is-logged-in/-/is-logged-in-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/store" "2.19.0"
+
+"@liff/is-sub-window@2.19.0":
+  "integrity" "sha512-b3WO4NJdsMh1YAdF65KTF4N3ftpYWc8vXwikd+6GVC4kJS4GZvzPfW3srlp3AlKaWJADolGxbNE5YtCzGU9Lpg=="
+  "resolved" "https://registry.npmjs.org/@liff/is-sub-window/-/is-sub-window-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/liff-types@2.19.0":
+  "integrity" "sha512-nXMETrWevDDwNerMCpmQX64GzOYil+ozcG2IyHdzgjuMCYNWDSI+FXUxqHqCeXgZF/VYNceWf9ydtQ3COmzTUw=="
+  "resolved" "https://registry.npmjs.org/@liff/liff-types/-/liff-types-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/analytics" "2.19.0"
+    "@liff/close-window" "2.19.0"
+    "@liff/get-friendship" "2.19.0"
+    "@liff/get-language" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/get-profile" "2.19.0"
+    "@liff/get-version" "2.19.0"
+    "@liff/init" "2.19.0"
+    "@liff/is-api-available" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-logged-in" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/login" "2.19.0"
+    "@liff/logout" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/open-window" "2.19.0"
+    "@liff/permanent-link" "2.19.0"
+    "@liff/permission" "2.19.0"
+    "@liff/ready" "2.19.0"
+    "@liff/scan-code-v2" "2.19.0"
+    "@liff/send-messages" "2.19.0"
+    "@liff/share-target-picker" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/sub-window" "2.19.0"
+    "@liff/use" "2.19.0"
+
+"@liff/logger@2.19.0":
+  "integrity" "sha512-hWfA1Cd1fotoaQxyVZ+732S5lPDrlpAZMXhQO1vHIxNh6KLmERge8EPHoaBd3PYxGAkhXA1u9G1qE+1yJGlavQ=="
+  "resolved" "https://registry.npmjs.org/@liff/logger/-/logger-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/login@2.19.0":
+  "integrity" "sha512-Kvsz5advXkF/ih4gUsK3B8Emkye6Mn4vWRot0xYBq3HjSNo/tjfZWRi+5J5OYv6AX0Q2mO6kBNZ94AQ9jmqQPg=="
+  "resolved" "https://registry.npmjs.org/@liff/login/-/login-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/get-version" "2.19.0"
+    "@liff/hooks" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+    "tiny-sha256" "^1.0.2"
+
+"@liff/logout@2.19.0":
+  "integrity" "sha512-5eRv+3CUv3boI95tEd8DbqvA6owXFVHAIbjDwkw2MEipC7ZPfGmOjzc7xh2d9EuggKLT3zz+7XIoD4VDNpz+sg=="
+  "resolved" "https://registry.npmjs.org/@liff/logout/-/logout-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/store" "2.19.0"
+
+"@liff/native-bridge@2.19.0":
+  "integrity" "sha512-eh5FqPswxRifpBOU+6rfossbg/ZhFhUEL6d0s3VCnTlqE42ycSMC9QrYzC56urkEETFNsWCumg7gWNbrsywUVw=="
+  "resolved" "https://registry.npmjs.org/@liff/native-bridge/-/native-bridge-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/open-window@2.19.0":
+  "integrity" "sha512-ullKjuFVMqWKkXB+RWoB8R9FkbhZ4NJUc5W07AL4ouESu93uFD7wxk2BsF3kdvV6lYaZ0dQ2qbUN+WDvW8mjDg=="
+  "resolved" "https://registry.npmjs.org/@liff/open-window/-/open-window-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/permanent-link@2.19.0":
+  "integrity" "sha512-XL8L10zIT+133MwsFtWmzMJKkEFrU0NEoG4mY/K6pvvgAH4AnzQHvrL+NlYRkdegX7WsMmZ4CPlxzVSUw8S/zg=="
+  "resolved" "https://registry.npmjs.org/@liff/permanent-link/-/permanent-link-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/permission@2.19.0":
+  "integrity" "sha512-FkcLZ2gdkQYwino9LAtu/PBhBIdk8As9FJfJmZepCFSy6ITD4y73tEOJsDs4ZaA9M+5m+GSy7Nw2Tzd0bBMtaQ=="
+  "resolved" "https://registry.npmjs.org/@liff/permission/-/permission-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/sub-window" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/ready@2.19.0":
+  "integrity" "sha512-UkJCE+/jpQ2+CW1gZKvOJhuLOKXj+L6GiqzgCGQL/KdlZcGcG69PRUCL+LZ+9dWY6a/IORJuGanGdwGjTrJcwg=="
+  "resolved" "https://registry.npmjs.org/@liff/ready/-/ready-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/scan-code-v2@2.19.0":
+  "integrity" "sha512-zCl8+Vs2vQAewS3MpeRbAs9x1fgtjzZDaNhHELzgTanNCHn82GpDpt1WvXsitnJs501TsXO/7pxSNnZ7Lto9rg=="
+  "resolved" "https://registry.npmjs.org/@liff/scan-code-v2/-/scan-code-v2-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/is-api-available" "2.19.0"
+    "@liff/sub-window" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/scan-code@2.19.0":
+  "integrity" "sha512-Y805tAogeUD22p7XL0TYD4fSJtliDc9b341gljoFtGFeW1wohSOgsS9ESLWMokDXsVhkgbbKhzpGM1le791peg=="
+  "resolved" "https://registry.npmjs.org/@liff/scan-code/-/scan-code-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/check-availability" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/send-messages@2.19.0":
+  "integrity" "sha512-KIyTsL/V49vslOhLR8I2J6pCeo0k0Su86vY4unUp+ind4kKPMI7r9hWPHKpmfuaDqOmGQpDoZBJvxveSP2u+zQ=="
+  "resolved" "https://registry.npmjs.org/@liff/send-messages/-/send-messages-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/util" "2.19.0"
+    "@line/bot-sdk" "^7.0.0"
+
+"@liff/server-api@2.19.0":
+  "integrity" "sha512-6HWAShU9y0l8rfYSQ2Jr6vEL/xJB0tvynAEAHq2ebgbv02sCN4CZHkGWSViVx4PT8Tntntm3BzEi1qTt1tZxGg=="
+  "resolved" "https://registry.npmjs.org/@liff/server-api/-/server-api-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/share-target-picker@2.19.0":
+  "integrity" "sha512-+x+k6VBjsabQpWTFO0JYmqyfJRZfvIltSWAHlfjmU9EmSlvH+sAkfa7yNXmk7L9gBK4zoBTI7+Yf08I/seKMKQ=="
+  "resolved" "https://registry.npmjs.org/@liff/share-target-picker/-/share-target-picker-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/analytics" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-logged-in" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/send-messages" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/types" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+    "@liff/window-postmessage" "2.19.0"
+
+"@liff/store@2.19.0":
+  "integrity" "sha512-lRKGdiJRJMyaf8mGazQwwhrEiwiMzabyiFDsa80vdz8/7O5ihcT1fLK8yQ8yC7lYqp1Jf8nyFmEIrdSPtZp7Hw=="
+  "resolved" "https://registry.npmjs.org/@liff/store/-/store-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/types" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/sub-window@2.19.0":
+  "integrity" "sha512-vzjmkL85l4ONsT2vH6yD2jnOrG8243iNO/5rqeNei//eakYnPXRON90MSfMEE19Kk31jy96xRaTsyBNV1MJ4fQ=="
+  "resolved" "https://registry.npmjs.org/@liff/sub-window/-/sub-window-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/close-window" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/is-api-available" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@liff/types@2.19.0":
+  "integrity" "sha512-DxpePHPK1MVdKg9TyEk5jn0litdxMDv5K+4ym33Vi4NpI4t5Kf/u1PGv06Nnxz7achf+/G3ti8kRe02C0GRhBQ=="
+  "resolved" "https://registry.npmjs.org/@liff/types/-/types-2.19.0.tgz"
+  "version" "2.19.0"
+
+"@liff/use@2.19.0":
+  "integrity" "sha512-Myc4tXJp+lt1fxG+MXxFD3yIV45gxPxo605ZhkV9I7rKCvWMow/KPUhhQ1mWPBs7wnwNI6+BIzD50dJOW51pKg=="
+  "resolved" "https://registry.npmjs.org/@liff/use/-/use-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/hooks" "2.19.0"
+    "@liff/logger" "2.19.0"
+
+"@liff/util@2.19.0":
+  "integrity" "sha512-ldODginVGGva1WU0Rg3kPmuFrHXwggnh8vvmLgJtW8/6ZEG4QJqZO97Ouq/VHMWGZlKoCFXJolPnCXrxO240AA=="
+  "resolved" "https://registry.npmjs.org/@liff/util/-/util-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/logger" "2.19.0"
+
+"@liff/window-postmessage@2.19.0":
+  "integrity" "sha512-aw7ic4nQlp+tLma+hzoNeUI7HG5MUGo6pIvUht/Lic6wqbI7rfmQqXwD2UMU5gwcpBmHwvwBiRhGUfLCQIzYDg=="
+  "resolved" "https://registry.npmjs.org/@liff/window-postmessage/-/window-postmessage-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/consts" "2.19.0"
+    "@liff/logger" "2.19.0"
+    "@liff/util" "2.19.0"
+
+"@line/bot-sdk@^7.0.0":
+  "integrity" "sha512-MNnE9Ew/NRhZIvSchWRaStJGVDcPIGhG7tiZ5Oz3DO+KOgbUffS1Pn+j4aatcBcULLysv0fgp2anIllc+N+hmA=="
+  "resolved" "https://registry.npmjs.org/@line/bot-sdk/-/bot-sdk-7.4.0.tgz"
+  "version" "7.4.0"
+  dependencies:
+    "@types/body-parser" "^1.19.0"
+    "@types/node" "^14.10.0"
+    "axios" "^0.21.1"
+    "body-parser" "^1.19.0"
+    "file-type" "^15.0.0"
+    "form-data" "^3.0.0"
+
+"@line/liff@^2.19.0":
+  "integrity" "sha512-zdJOPvWNacOa5LBExIXQT6WJ/+1lbbDrkuW0Y446bI9xEYHHShhagUcWNE9GsEdOVsa4YRaltKfSSQ447MsSXw=="
+  "resolved" "https://registry.npmjs.org/@line/liff/-/liff-2.19.0.tgz"
+  "version" "2.19.0"
+  dependencies:
+    "@liff/analytics" "2.19.0"
+    "@liff/close-window" "2.19.0"
+    "@liff/consts" "2.19.0"
+    "@liff/extensions" "2.19.0"
+    "@liff/get-friendship" "2.19.0"
+    "@liff/get-language" "2.19.0"
+    "@liff/get-line-version" "2.19.0"
+    "@liff/get-os" "2.19.0"
+    "@liff/get-profile" "2.19.0"
+    "@liff/get-version" "2.19.0"
+    "@liff/hooks" "2.19.0"
+    "@liff/init" "2.19.0"
+    "@liff/is-api-available" "2.19.0"
+    "@liff/is-in-client" "2.19.0"
+    "@liff/is-logged-in" "2.19.0"
+    "@liff/is-sub-window" "2.19.0"
+    "@liff/liff-types" "2.19.0"
+    "@liff/login" "2.19.0"
+    "@liff/logout" "2.19.0"
+    "@liff/native-bridge" "2.19.0"
+    "@liff/open-window" "2.19.0"
+    "@liff/permanent-link" "2.19.0"
+    "@liff/permission" "2.19.0"
+    "@liff/ready" "2.19.0"
+    "@liff/scan-code-v2" "2.19.0"
+    "@liff/send-messages" "2.19.0"
+    "@liff/server-api" "2.19.0"
+    "@liff/share-target-picker" "2.19.0"
+    "@liff/store" "2.19.0"
+    "@liff/sub-window" "2.19.0"
+    "@liff/use" "2.19.0"
+    "@liff/util" "2.19.0"
+    "promise-polyfill" "^8.1.3"
+    "tslib" "^2.3.0"
+    "whatwg-fetch" "^3.0.0"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -4806,6 +5271,16 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
+"@tokenizer/token@^0.1.1":
+  "integrity" "sha512-XO6INPbZCxdprl+9qa/AAbFFOMzzwqYxpjPgLICrMD6C2FCw6qfJOPcBk6JqqPLSaZ/Qx87qn4rpPmPMwaAK6w=="
+  "resolved" "https://registry.npmjs.org/@tokenizer/token/-/token-0.1.1.tgz"
+  "version" "0.1.1"
+
+"@tokenizer/token@^0.3.0":
+  "integrity" "sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A=="
+  "resolved" "https://registry.npmjs.org/@tokenizer/token/-/token-0.3.0.tgz"
+  "version" "0.3.0"
+
 "@tootallnate/once@1":
   "integrity" "sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw=="
   "resolved" "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
@@ -4881,7 +5356,7 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/body-parser@*":
+"@types/body-parser@*", "@types/body-parser@^1.19.0":
   "integrity" "sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g=="
   "resolved" "https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.2.tgz"
   "version" "1.19.2"
@@ -5072,6 +5547,11 @@
   "integrity" "sha512-BzcaRsnFuznzOItW1WpQrDHM7plAa7GIDMZ6b5pnMbkqEtM/6WCOhvZar39oeMQP79gwvFUWjjptE7/KGcNqFg=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-12.20.47.tgz"
   "version" "12.20.47"
+
+"@types/node@^14.10.0":
+  "integrity" "sha512-q4jlIR71hUpWTnGhXWcakgkZeHa3CCjcQcnuzU8M891BAWA2jHiziiWEPEkdS5pFsz7H9HJiy8BrK7tBRNrY7A=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-14.18.12.tgz"
+  "version" "14.18.12"
 
 "@types/parse-json@^4.0.0":
   "integrity" "sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA=="
@@ -5947,7 +6427,7 @@
   "resolved" "https://registry.npmjs.org/axe-core/-/axe-core-4.4.1.tgz"
   "version" "4.4.1"
 
-"axios@0.21.4":
+"axios@^0.21.1", "axios@0.21.4":
   "integrity" "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg=="
   "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
   "version" "0.21.4"
@@ -6221,7 +6701,7 @@
   "resolved" "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
   "version" "3.7.2"
 
-"body-parser@1.19.0":
+"body-parser@^1.19.0", "body-parser@1.19.0":
   "integrity" "sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw=="
   "resolved" "https://registry.npmjs.org/body-parser/-/body-parser-1.19.0.tgz"
   "version" "1.19.0"
@@ -8318,6 +8798,16 @@
     "loader-utils" "^2.0.0"
     "schema-utils" "^3.0.0"
 
+"file-type@^15.0.0":
+  "integrity" "sha512-0LieQlSA3bWUdErNrxzxfI4rhsvNAVPBO06R8pTc1hp9SE6nhqlVyvhcaXoMmtXkBTPnQenbMPLW9X76hH76oQ=="
+  "resolved" "https://registry.npmjs.org/file-type/-/file-type-15.0.1.tgz"
+  "version" "15.0.1"
+  dependencies:
+    "readable-web-to-node-stream" "^2.0.0"
+    "strtok3" "^6.0.3"
+    "token-types" "^2.0.0"
+    "typedarray-to-buffer" "^3.1.5"
+
 "filelist@^1.0.1":
   "integrity" "sha512-z7O0IS8Plc39rTCq6i6iHxk43duYOn8uFJiWSewIq0Bww1RNybVHSCjahmcC87ZqAm4OTvFzlzeGu3XAzG1ctQ=="
   "resolved" "https://registry.npmjs.org/filelist/-/filelist-1.0.2.tgz"
@@ -9068,7 +9558,7 @@
   dependencies:
     "harmony-reflect" "^1.4.6"
 
-"ieee754@^1.1.13", "ieee754@^1.1.4":
+"ieee754@^1.1.13", "ieee754@^1.1.4", "ieee754@^1.2.1":
   "integrity" "sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA=="
   "resolved" "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz"
   "version" "1.2.1"
@@ -11598,6 +12088,11 @@
   "resolved" "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   "version" "4.0.0"
 
+"peek-readable@^4.1.0":
+  "integrity" "sha512-ZI3LnwUv5nOGbQzD9c2iDG6toheuXSZP5esSHBjopsXH4dg19soufvpUGA3uohi5anFtGb2lhAVdHzH6R/Evvg=="
+  "resolved" "https://registry.npmjs.org/peek-readable/-/peek-readable-4.1.0.tgz"
+  "version" "4.1.0"
+
 "performance-now@^2.1.0":
   "integrity" "sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns="
   "resolved" "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
@@ -12288,6 +12783,11 @@
   "resolved" "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
   "version" "2.0.1"
 
+"promise-polyfill@^8.1.3":
+  "integrity" "sha512-Og0+jCRQetV84U8wVjMNccfGCnMQ9mGs9Hv78QFe+pSDD3gWTpz0y+1QCuxy5d/vBFuZ3iwP2eycAkvqIMPmWg=="
+  "resolved" "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-8.2.3.tgz"
+  "version" "8.2.3"
+
 "promise@^8.0.3", "promise@^8.1.0":
   "integrity" "sha512-W04AqnILOL/sPRXziNicCjSNRruLAuIHEOVBazepu0545DDNGYHz7ar9ZgZ1fMU8/MA4mVxp5rkBWRi6OXIy3Q=="
   "resolved" "https://registry.npmjs.org/promise/-/promise-8.1.0.tgz"
@@ -12744,6 +13244,11 @@
     "safe-buffer" "~5.1.1"
     "string_decoder" "~1.1.1"
     "util-deprecate" "~1.0.1"
+
+"readable-web-to-node-stream@^2.0.0":
+  "integrity" "sha512-+oZJurc4hXpaaqsN68GoZGQAQIA3qr09Or4fqEsargABnbe5Aau8hFn6ISVleT3cpY/0n/8drn7huyyEvTbghA=="
+  "resolved" "https://registry.npmjs.org/readable-web-to-node-stream/-/readable-web-to-node-stream-2.0.0.tgz"
+  "version" "2.0.0"
 
 "readdirp@~3.6.0":
   "integrity" "sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA=="
@@ -13848,6 +14353,14 @@
   "resolved" "https://registry.npmjs.org/strnum/-/strnum-1.0.5.tgz"
   "version" "1.0.5"
 
+"strtok3@^6.0.3":
+  "integrity" "sha512-fZtbhtvI9I48xDSywd/somNqgUHl2L2cstmXCCif0itOf96jeW18MBSyrLuNicYQVkvpOxkZtkzujiTJ9LW5Jw=="
+  "resolved" "https://registry.npmjs.org/strtok3/-/strtok3-6.3.0.tgz"
+  "version" "6.3.0"
+  dependencies:
+    "@tokenizer/token" "^0.3.0"
+    "peek-readable" "^4.1.0"
+
 "style-loader@^3.3.1":
   "integrity" "sha512-GPcQ+LDJbrcxHORTRes6Jy2sfvK2kS6hpSfI/fXhPt+spVzxF6LJ1dHLN9zIGmVaaP044YKaIatFaufENRiDoQ=="
   "resolved" "https://registry.npmjs.org/style-loader/-/style-loader-3.3.1.tgz"
@@ -14093,6 +14606,11 @@
   "resolved" "https://registry.npmjs.org/tiny-invariant/-/tiny-invariant-1.2.0.tgz"
   "version" "1.2.0"
 
+"tiny-sha256@^1.0.2":
+  "integrity" "sha1-OyCnX3cJfc7Br1E/UYnCbsL1SZI="
+  "resolved" "https://registry.npmjs.org/tiny-sha256/-/tiny-sha256-1.0.2.tgz"
+  "version" "1.0.2"
+
 "tmpl@1.0.x":
   "integrity" "sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE="
   "resolved" "https://registry.npmjs.org/tmpl/-/tmpl-1.0.4.tgz"
@@ -14144,6 +14662,14 @@
   "integrity" "sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw=="
   "resolved" "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.0.tgz"
   "version" "1.0.0"
+
+"token-types@^2.0.0":
+  "integrity" "sha512-wnQcqlreS6VjthyHO3Y/kpK/emflxDBNhlNUPfh7wE39KnuDdOituXomIbyI79vBtF0Ninpkh72mcuRHo+RG3Q=="
+  "resolved" "https://registry.npmjs.org/token-types/-/token-types-2.1.1.tgz"
+  "version" "2.1.1"
+  dependencies:
+    "@tokenizer/token" "^0.1.1"
+    "ieee754" "^1.2.1"
 
 "tough-cookie@^4.0.0":
   "integrity" "sha512-tHdtEpQCMrc1YLrMaqXXcj6AxhYi/xgit6mZu1+EDWUn+qhUf8wMQoFIy9NXuq23zAwtcB0t/MjACGR18pcRbg=="
