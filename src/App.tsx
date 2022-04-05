@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import {
   ChakraProvider,
   Box,
@@ -8,9 +8,11 @@ import {
   Code,
   Grid,
   theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+} from "@chakra-ui/react";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { Logo } from "./Logo";
+import { PatientCard } from "./components/organisms/patient-card";
+import { UpsertPatientCard } from "./components/organisms/upsert-patient-card";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -18,8 +20,9 @@ export const App = () => (
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
         <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
+          {/* <PatientCard /> */}
+          <UpsertPatientCard />
+          {/* <Text>
             Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
           </Text>
           <Link
@@ -30,9 +33,9 @@ export const App = () => (
             rel="noopener noreferrer"
           >
             Learn Chakra
-          </Link>
+          </Link> */}
         </VStack>
       </Grid>
     </Box>
   </ChakraProvider>
-)
+);
