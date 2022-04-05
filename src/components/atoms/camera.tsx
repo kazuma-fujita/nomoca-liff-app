@@ -18,17 +18,17 @@ const videoConstraints = {
 
 type Props = {
   webcamRef?: LegacyRef<Webcam> | undefined;
-  imageUrl: string | null;
+  captureImage: string | null;
 };
 
-export const Camera = ({ webcamRef, imageUrl }: Props) => {
+export const Camera = ({ webcamRef, captureImage }: Props) => {
   return (
     <>
-      {imageUrl ? (
+      {captureImage ? (
         <>
           <div>
-            {/* <img src={imageUrl} alt="Screenshot" width={540} height={360} /> */}
-            <img src={imageUrl} alt="Screenshot" />
+            {/* <img src={captureImage} alt="Screenshot" width={540} height={360} /> */}
+            <img src={captureImage} alt="Screenshot" />
           </div>
         </>
       ) : (
