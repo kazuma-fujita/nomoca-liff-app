@@ -6,27 +6,27 @@ import { PatientCard } from "../organisms/patient-card";
 import { UpsertPatientCard } from "../organisms/upsert-patient-card";
 
 export const AppTemplate = () => {
-  const { name, avatarImageUrl } = useAuth();
-  // const name = null;
-  // const avatarImageUrl = null;
+  // const { name, avatarImageUrl } = useAuth();
+  const name = null;
+  const avatarImageUrl = null;
   const [qrCodeValue, setQRCodeValue] = useState<string | null>(null);
-  const [isCaptureEnable, setCaptureEnable] = useState(false);
+  const [isUpdateQRCode, setIsUpdateQRCode] = useState(false);
   return (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <VStack spacing={8}>
-          {qrCodeValue && !isCaptureEnable ? (
+          {qrCodeValue && !isUpdateQRCode ? (
             <PatientCard
               qrCodeValue={qrCodeValue}
               name={name}
               avatarImageUrl={avatarImageUrl}
-              setCaptureEnable={setCaptureEnable}
+              setIsUpdateQRCode={setIsUpdateQRCode}
             />
           ) : (
             <UpsertPatientCard
               setQRCodeValue={setQRCodeValue}
-              isCaptureEnable={isCaptureEnable}
-              setCaptureEnable={setCaptureEnable}
+              isUpdateQRCode={isUpdateQRCode}
+              setIsUpdateQRCode={setIsUpdateQRCode}
             />
           )}
         </VStack>

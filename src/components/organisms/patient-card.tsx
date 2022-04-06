@@ -16,14 +16,14 @@ type Props = {
   qrCodeValue: string | null;
   name: string | null;
   avatarImageUrl: string | null;
-  setCaptureEnable: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUpdateQRCode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const PatientCard = ({
   qrCodeValue,
   name,
   avatarImageUrl,
-  setCaptureEnable,
+  setIsUpdateQRCode,
 }: Props) => {
   return (
     <Center py={12}>
@@ -89,7 +89,7 @@ export const PatientCard = ({
             aria-label="launch camera"
             icon={<FaCamera />}
             size="sm"
-            onClick={() => setCaptureEnable(true)}
+            onClick={() => setIsUpdateQRCode(true)}
           />
         </Box>
       </Box>

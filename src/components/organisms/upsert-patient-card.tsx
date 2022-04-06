@@ -21,17 +21,18 @@ import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
 import { Camera } from "../atoms/camera";
 import { Chip } from "../atoms/chip";
 import { RoundedButton } from "../atoms/rounded-button";
+import { RoundedGrayButton } from "../atoms/rounded-gray-button";
 
 type Props = {
   setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;
-  isCaptureEnable: boolean;
-  setCaptureEnable: React.Dispatch<React.SetStateAction<boolean>>;
+  isUpdateQRCode: boolean;
+  setIsUpdateQRCode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const UpsertPatientCard = ({
   setQRCodeValue,
-  isCaptureEnable,
-  setCaptureEnable,
+  isUpdateQRCode,
+  setIsUpdateQRCode,
 }: Props) => {
   const {
     analyzePicture,
@@ -40,10 +41,17 @@ export const UpsertPatientCard = ({
     error,
     resetAnalyzedData,
   } = useAnalyzePicture();
-  // const [isCaptureEnable, setCaptureEnable] = useState(false);
+  const [isCaptureEnable, setCaptureEnable] = useState(false);
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
   const [captureImage, setCaptureImage] = useState<string | null>(null);
   const webcamRef = useRef<Webcam>(null);
+
+  const resetState = useCallback(() => {
+    setCaptureImage(null);
+    setCaptureEnable(false);
+    setIsUpdateQRCode(false);
+    resetAnalyzedData();
+  }, [resetAnalyzedData, setIsUpdateQRCode]);
 
   const reLaunchCamera = useCallback(() => {
     setCaptureImage(null);
@@ -70,10 +78,8 @@ export const UpsertPatientCard = ({
     }
     // TODO: DB登録処理
     setQRCodeValue(selectedRadioValue);
-    setCaptureEnable(false);
-    setCaptureImage(null);
-    resetAnalyzedData();
-  }, [resetAnalyzedData, selectedRadioValue, setCaptureEnable, setQRCodeValue]);
+    resetState();
+  }, [resetState, selectedRadioValue, setQRCodeValue]);
 
   return (
     <Center py={6}>
@@ -195,6 +201,14 @@ export const UpsertPatientCard = ({
                   再度読み取りをしても診察券番号が正常に表示されない場合、手動で診察券番号を入力してください。
                 </ListItem>
               </List>
+            </>
+          )}
+          {isUpdateQRCode && (
+            <>
+              <Box mb={8} />
+              <RoundedGrayButton onClick={resetState}>
+                キャンセル
+              </RoundedGrayButton>
             </>
           )}
         </Box>
