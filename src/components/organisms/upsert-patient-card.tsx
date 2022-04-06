@@ -1,6 +1,8 @@
 import Predictions from "@aws-amplify/predictions";
-import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
+import { CheckIcon, SmallCloseIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Center,
@@ -9,12 +11,15 @@ import {
   ListItem,
   Radio,
   RadioGroup,
+  SlideFade,
+  Spinner,
   Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
 import { Camera } from "../atoms/camera";
 
 type Props = {
@@ -22,7 +27,13 @@ type Props = {
 };
 
 export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
-  const [patientNumbers, setPatientNumbers] = useState<string[]>([]);
+  const {
+    analyzePicture,
+    analyzedNumbers,
+    isLoading,
+    error,
+    resetAnalyzedData,
+  } = useAnalyzePicture();
   const [isCaptureEnable, setCaptureEnable] = useState(false);
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
   const [captureImage, setCaptureImage] = useState<string | null>(null);
@@ -30,9 +41,9 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
 
   const reLaunchCamera = useCallback(() => {
     setCaptureImage(null);
-    setPatientNumbers([]);
     setCaptureEnable(true);
-  }, []);
+    resetAnalyzedData();
+  }, [resetAnalyzedData]);
 
   const toggleLaunchCamera = useCallback(() => {
     setCaptureEnable(!isCaptureEnable);
@@ -42,33 +53,9 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setCaptureImage(imageSrc);
-      Predictions.identify({
-        text: {
-          source: {
-            bytes: Buffer.from(
-              imageSrc.replace("data:image/jpeg;base64,", ""),
-              "base64"
-            ),
-          },
-          format: "PLAIN", // PLAIN or FORM or TABLE
-        },
-      })
-        .then((response) => {
-          console.log("response:", response);
-          const {
-            text: { words },
-          } = response;
-
-          const numbers = words
-            .filter((word) => word.text && /^-?\d+$/.test(word.text))
-            .map((word) => word.text!);
-          // .map((word) => Number(word.text));
-          console.log("numbers:", numbers);
-          setPatientNumbers(numbers);
-        })
-        .catch((err) => console.error("error:", { err }));
+      analyzePicture(imageSrc);
     }
-  }, [webcamRef]);
+  }, [analyzePicture]);
 
   const upsertPatientNumber = useCallback(() => {
     if (!selectedRadioValue) {
@@ -110,31 +97,52 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
             <Text color={"gray.500"}>診察券登録</Text>
           </Stack>
           {isCaptureEnable && (
-            <Camera webcamRef={webcamRef} captureImage={captureImage} />
+            <SlideFade in={isCaptureEnable} offsetX="360px">
+              <Camera webcamRef={webcamRef} captureImage={captureImage} />
+            </SlideFade>
           )}
         </Stack>
 
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
           <List spacing={3} fontSize={"sm"}>
             <ListItem>
-              <ListIcon as={CheckIcon} color="green.400" />
-              {captureImage && patientNumbers.length
+              <ListIcon
+                as={
+                  error ||
+                  (!isLoading && captureImage && !analyzedNumbers.length)
+                    ? SmallCloseIcon
+                    : CheckIcon
+                }
+                color="green.400"
+              />
+              {error
+                ? "エラーが発生しました。"
+                : isLoading
+                ? "読込中です。"
+                : captureImage && analyzedNumbers.length
                 ? "診察券番号を選択してください。"
-                : captureImage && !patientNumbers.length
-                ? "診察券を読み取れませんでした。再度読み取りしてください。"
+                : captureImage && !analyzedNumbers.length
+                ? "診察券を読み取れませんでした。"
                 : isCaptureEnable
                 ? "診察券をカメラに向けて読み取ってください。"
                 : "カメラを起動して診察券番号を読み取ってください。"}
             </ListItem>
           </List>
-          {captureImage && patientNumbers.length > 0 && (
+          <Box mb={4} />
+          {isLoading && <Spinner color="green.300" size="lg" />}
+          {error && (
+            <Alert status="error">
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
+          {captureImage && analyzedNumbers.length > 0 && (
             <>
-              <Box pb={4} />
               <RadioGroup
                 onChange={setSelectedRadioValue}
                 value={selectedRadioValue}
               >
-                {patientNumbers.map((patientNumber, index) => (
+                {analyzedNumbers.map((patientNumber, index) => (
                   <Stack key={patientNumber + index} pl={8} spacing={8}>
                     <Radio colorScheme="green" value={patientNumber}>
                       {patientNumber}
@@ -142,8 +150,8 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
                   </Stack>
                 ))}
               </RadioGroup>
+              <Box mb={8} />
               <Button
-                mt={10}
                 w={"full"}
                 bg={"green.400"}
                 color={"white"}
@@ -163,17 +171,17 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
           )}
           {captureImage && (
             <>
-              <Box pb={8} />
+              <Box mb={8} />
               <List spacing={3} fontSize={"sm"}>
                 <ListItem>
-                  <ListIcon as={WarningTwoIcon} color="yellow.400" />
-                  手ブレや光の反射で正常に診察券を読み込めない場合があります。
+                  <ListIcon as={CheckIcon} color="green.400" />
+                  正常に診察券番号が表示されない場合は再度読み取りをしてください。
                 </ListItem>
               </List>
             </>
           )}
+          <Box mb={8} />
           <Button
-            mt={10}
             w={"full"}
             bg={"green.400"}
             color={"white"}
@@ -192,6 +200,7 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
                 ? capture
                 : toggleLaunchCamera
             }
+            isLoading={isLoading}
           >
             {captureImage
               ? "診察券を再度読み取る"
@@ -201,15 +210,15 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
           </Button>
           {captureImage && (
             <>
-              <Box pb={8} />
+              <Box mb={8} />
               <List spacing={3} fontSize={"sm"}>
                 <ListItem>
                   <ListIcon as={WarningTwoIcon} color="yellow.400" />
-                  手書きの番号やカードに汚れがあると正常に診察券を読み取れない場合があります。
+                  手ブレや光の反射、カードに汚れがあると正常に診察券を読み取れない場合があります。
                 </ListItem>
                 <ListItem>
                   <ListIcon as={WarningTwoIcon} color="yellow.400" />
-                  診察券番号が正常に表示されない場合、手動で診察券番号を入力してください。
+                  再度読み取りをしても診察券番号が正常に表示されない場合、手動で診察券番号を入力してください。
                 </ListItem>
               </List>
             </>

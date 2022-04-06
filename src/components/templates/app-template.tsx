@@ -7,7 +7,9 @@ import { PatientCard } from "../organisms/patient-card";
 import { UpsertPatientCard } from "../organisms/upsert-patient-card";
 
 export const AppTemplate = () => {
-  const { name, avatarImageUrl } = useAuth();
+  // const { name, avatarImageUrl } = useAuth();
+  const name = null;
+  const avatarImageUrl = null;
   const [qrCodeValue, setQRCodeValue] = useState<string | null>(null);
   return (
     <Box textAlign="center" fontSize="xl">

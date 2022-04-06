@@ -8,7 +8,7 @@ window.Buffer = Buffer;
 const videoConstraints = {
   // width: 720,
   // height: 360,
-  facingMode: "user",
+  facingMode: "environment", // environment=背面カメラ、user=インナーカメラ
 };
 
 type Props = {
