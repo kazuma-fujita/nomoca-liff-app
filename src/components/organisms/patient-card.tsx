@@ -8,6 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import QRCode from "react-qr-code";
+import { Chip } from "../atoms/chip";
 
 type Props = {
   qrCodeValue: string | null;
@@ -63,10 +64,12 @@ export const PatientCard = ({ qrCodeValue, name, avatarImageUrl }: Props) => {
             />
           )}
         </Box>
-        <Stack pt={10} align={"center"}>
-          <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
+        <Stack pt={8} align={"center"}>
+          {/* <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
             nomoca診察券
-          </Text>
+          </Text> */}
+          <Box mb={4} />
+          <Chip>NOMOCA診察券</Chip>
           <Box paddingBottom={2} />
           <Stack mt={6} direction={"row"} spacing={4} align={"right"}>
             <Avatar src={avatarImageUrl ?? undefined} />

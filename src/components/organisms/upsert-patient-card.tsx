@@ -1,15 +1,8 @@
-import Predictions from "@aws-amplify/predictions";
-import {
-  CheckIcon,
-  CloseIcon,
-  SmallCloseIcon,
-  WarningTwoIcon,
-} from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
   Box,
-  Button,
   Center,
   List,
   ListIcon,
@@ -26,8 +19,8 @@ import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
 import { Camera } from "../atoms/camera";
-import { RoundedButton } from "../atoms/rounded-button";
 import { Chip } from "../atoms/chip";
+import { RoundedButton } from "../atoms/rounded-button";
 
 type Props = {
   setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;
@@ -94,9 +87,9 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
             <Text color={"gray.500"}>診察券登録</Text>
           </Stack>
           {isCaptureEnable && (
-            <SlideFade in={isCaptureEnable} offsetY="360px">
-              <Camera webcamRef={webcamRef} captureImage={captureImage} />
-            </SlideFade>
+            // <SlideFade in={isCaptureEnable} offsetY="360px">
+            <Camera webcamRef={webcamRef} captureImage={captureImage} />
+            // </SlideFade>
           )}
         </Stack>
 
@@ -126,9 +119,9 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
             </ListItem>
           </List>
           <Box mb={4} />
-          {isLoading && <Spinner color="green.300" size="lg" />}
+          {isLoading && <Spinner color="green.300" size={"lg"} />}
           {error && (
-            <Alert status="error">
+            <Alert status="error" fontSize={"sm"} rounded={"xl"}>
               <AlertIcon />
               {error}
             </Alert>

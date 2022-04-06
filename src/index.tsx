@@ -8,6 +8,10 @@ import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 
+// Buffer is not define error対策
+// @ts-ignore
+window.Buffer = Buffer;
+
 Amplify.configure(awsconfig);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
