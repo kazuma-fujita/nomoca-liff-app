@@ -7,6 +7,8 @@ import {
   List,
   ListIcon,
   ListItem,
+  NumberInput,
+  NumberInputField,
   Radio,
   RadioGroup,
   SlideFade,
@@ -80,6 +82,26 @@ export const UpsertPatientCard = ({
     setQRCodeValue(selectedRadioValue);
     resetState();
   }, [resetState, selectedRadioValue, setQRCodeValue]);
+
+  const [textValue, setTextValue] = useState("");
+
+  const handleTextChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      // TODO: 数字Validation
+      setTextValue(event.target.value);
+    },
+    []
+  );
+
+  const upsertPatientNumberWithManual = useCallback(() => {
+    if (!textValue) {
+      // TODO: 数字判定、nullエラー判定
+      return;
+    }
+    // TODO: DB登録処理
+    setQRCodeValue(textValue);
+    resetState();
+  }, [resetState, setQRCodeValue, textValue]);
 
   return (
     <Center py={0}>
@@ -199,6 +221,20 @@ export const UpsertPatientCard = ({
                   再度読み取りをしても診察券番号が正常に表示されない場合、手動で診察券番号を入力してください。
                 </ListItem>
               </List>
+              <Box mb={8} />
+              <NumberInput>
+                <NumberInputField
+                  placeholder="診察券番号"
+                  _placeholder={{ color: "inherit" }}
+                  value={textValue}
+                  onChange={handleTextChange}
+                  disabled={isLoading}
+                />
+              </NumberInput>
+              <Box mb={4} />
+              <RoundedButton onClick={upsertPatientNumberWithManual}>
+                入力した診察券番号を登録する
+              </RoundedButton>
             </>
           )}
           {isUpdateQRCode && (
