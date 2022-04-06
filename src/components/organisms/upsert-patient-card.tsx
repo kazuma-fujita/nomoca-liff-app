@@ -82,7 +82,7 @@ export const UpsertPatientCard = ({
   }, [resetState, selectedRadioValue, setQRCodeValue]);
 
   return (
-    <Center py={6}>
+    <Center py={0}>
       <Box
         maxW={"330px"}
         w={"full"}
@@ -93,7 +93,7 @@ export const UpsertPatientCard = ({
       >
         <Stack
           textAlign={"center"}
-          p={6}
+          p={0}
           color={useColorModeValue("gray.800", "white")}
           align={"center"}
         >
@@ -101,12 +101,10 @@ export const UpsertPatientCard = ({
           <Stack direction={"row"} align={"center"} justify={"center"}>
             <Text color={"gray.500"}>診察券登録</Text>
           </Stack>
-          {isCaptureEnable && (
-            // <SlideFade in={isCaptureEnable} offsetY="360px">
-            <Camera webcamRef={webcamRef} captureImage={captureImage} />
-            // </SlideFade>
-          )}
         </Stack>
+        {isCaptureEnable && (
+          <Camera webcamRef={webcamRef} captureImage={captureImage} />
+        )}
 
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
           <List spacing={3} fontSize={"sm"}>

@@ -7,7 +7,7 @@ window.Buffer = Buffer;
 
 const videoConstraints = {
   // width: 720,
-  height: 360,
+  // height: 360,
   facingMode: "environment", // environment=背面カメラ、user=インナーカメラ
 };
 
@@ -23,7 +23,12 @@ export const Camera = ({ webcamRef, captureImage }: Props) => {
         <>
           <div>
             {/* <img src={captureImage} alt="Screenshot" width={540} height={360} /> */}
-            <img src={captureImage} alt="Screenshot" height={360} />
+            <img
+              src={captureImage}
+              alt="Screenshot"
+              height="27vh"
+              width="100%"
+            />
           </div>
         </>
       ) : (
@@ -32,10 +37,15 @@ export const Camera = ({ webcamRef, captureImage }: Props) => {
             <Webcam
               audio={false}
               // width={540}
-              height={360}
+              // height={360}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
+              style={{
+                height: "27vh",
+                width: "100%",
+                // objectFit: "fill",
+              }}
             />
           </div>
         </>
