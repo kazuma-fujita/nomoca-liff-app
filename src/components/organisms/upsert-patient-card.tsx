@@ -24,9 +24,15 @@ import { RoundedButton } from "../atoms/rounded-button";
 
 type Props = {
   setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;
+  isCaptureEnable: boolean;
+  setCaptureEnable: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
+export const UpsertPatientCard = ({
+  setQRCodeValue,
+  isCaptureEnable,
+  setCaptureEnable,
+}: Props) => {
   const {
     analyzePicture,
     analyzedNumbers,
@@ -34,7 +40,7 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
     error,
     resetAnalyzedData,
   } = useAnalyzePicture();
-  const [isCaptureEnable, setCaptureEnable] = useState(false);
+  // const [isCaptureEnable, setCaptureEnable] = useState(false);
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
   const [captureImage, setCaptureImage] = useState<string | null>(null);
   const webcamRef = useRef<Webcam>(null);
@@ -43,11 +49,11 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
     setCaptureImage(null);
     setCaptureEnable(true);
     resetAnalyzedData();
-  }, [resetAnalyzedData]);
+  }, [resetAnalyzedData, setCaptureEnable]);
 
   const toggleLaunchCamera = useCallback(() => {
     setCaptureEnable(!isCaptureEnable);
-  }, [isCaptureEnable]);
+  }, [isCaptureEnable, setCaptureEnable]);
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
@@ -64,7 +70,10 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
     }
     // TODO: DB登録処理
     setQRCodeValue(selectedRadioValue);
-  }, [selectedRadioValue, setQRCodeValue]);
+    setCaptureEnable(false);
+    setCaptureImage(null);
+    resetAnalyzedData();
+  }, [resetAnalyzedData, selectedRadioValue, setCaptureEnable, setQRCodeValue]);
 
   return (
     <Center py={6}>

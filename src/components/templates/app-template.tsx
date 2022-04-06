@@ -10,18 +10,24 @@ export const AppTemplate = () => {
   // const name = null;
   // const avatarImageUrl = null;
   const [qrCodeValue, setQRCodeValue] = useState<string | null>(null);
+  const [isCaptureEnable, setCaptureEnable] = useState(false);
   return (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <VStack spacing={8}>
-          {qrCodeValue ? (
+          {qrCodeValue && !isCaptureEnable ? (
             <PatientCard
               qrCodeValue={qrCodeValue}
               name={name}
               avatarImageUrl={avatarImageUrl}
+              setCaptureEnable={setCaptureEnable}
             />
           ) : (
-            <UpsertPatientCard setQRCodeValue={setQRCodeValue} />
+            <UpsertPatientCard
+              setQRCodeValue={setQRCodeValue}
+              isCaptureEnable={isCaptureEnable}
+              setCaptureEnable={setCaptureEnable}
+            />
           )}
         </VStack>
       </Grid>

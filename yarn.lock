@@ -12981,7 +12981,7 @@
     "use-callback-ref" "^1.2.5"
     "use-sidecar" "^1.0.5"
 
-"react-icons@^3.0.0":
+"react-icons@^3.11.0":
   "integrity" "sha512-JRgiI/vdF6uyBgyZhVyYJUZAop95Sy4XDe/jmT3R/bKliFWpO/uZBwvSjWEdxwzec7SYbEPNPck0Kff2tUGM2Q=="
   "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-3.11.0.tgz"
   "version" "3.11.0"

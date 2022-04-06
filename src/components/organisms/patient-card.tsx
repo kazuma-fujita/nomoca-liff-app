@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Center,
+  IconButton,
   Image,
   Stack,
   Text,
@@ -9,14 +10,21 @@ import {
 } from "@chakra-ui/react";
 import QRCode from "react-qr-code";
 import { Chip } from "../atoms/chip";
+import { FaCamera } from "react-icons/fa";
 
 type Props = {
   qrCodeValue: string | null;
   name: string | null;
   avatarImageUrl: string | null;
+  setCaptureEnable: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PatientCard = ({ qrCodeValue, name, avatarImageUrl }: Props) => {
+export const PatientCard = ({
+  qrCodeValue,
+  name,
+  avatarImageUrl,
+  setCaptureEnable,
+}: Props) => {
   return (
     <Center py={12}>
       <Box
@@ -64,11 +72,8 @@ export const PatientCard = ({ qrCodeValue, name, avatarImageUrl }: Props) => {
             />
           )}
         </Box>
-        <Stack pt={8} align={"center"}>
-          {/* <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
-            nomoca診察券
-          </Text> */}
-          <Box mb={4} />
+        <Box mb={16} />
+        <Stack align={"center"}>
           <Chip>NOMOCA診察券</Chip>
           <Box paddingBottom={2} />
           <Stack mt={6} direction={"row"} spacing={4} align={"right"}>
@@ -79,6 +84,14 @@ export const PatientCard = ({ qrCodeValue, name, avatarImageUrl }: Props) => {
             </Stack>
           </Stack>
         </Stack>
+        <Box pt={4} textAlign="end">
+          <IconButton
+            aria-label="launch camera"
+            icon={<FaCamera />}
+            size="sm"
+            onClick={() => setCaptureEnable(true)}
+          />
+        </Box>
       </Box>
     </Center>
   );
