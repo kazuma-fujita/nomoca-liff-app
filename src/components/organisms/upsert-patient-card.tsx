@@ -26,6 +26,8 @@ import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
 import { Camera } from "../atoms/camera";
+import { RoundedButton } from "../atoms/rounded-button";
+import { Chip } from "../atoms/chip";
 
 type Props = {
   setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;
@@ -87,17 +89,7 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
           color={useColorModeValue("gray.800", "white")}
           align={"center"}
         >
-          <Text
-            fontSize={"sm"}
-            fontWeight={500}
-            bg={useColorModeValue("green.50", "green.900")}
-            p={2}
-            px={3}
-            color={"green.500"}
-            rounded={"full"}
-          >
-            NOMOCA診察券
-          </Text>
+          <Chip>NOMOCA診察券</Chip>
           <Stack direction={"row"} align={"center"} justify={"center"}>
             <Text color={"gray.500"}>診察券登録</Text>
           </Stack>
@@ -156,22 +148,9 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
                 ))}
               </RadioGroup>
               <Box mb={8} />
-              <Button
-                w={"full"}
-                bg={"green.400"}
-                color={"white"}
-                rounded={"xl"}
-                boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-                _hover={{
-                  bg: "green.500",
-                }}
-                _focus={{
-                  bg: "green.500",
-                }}
-                onClick={upsertPatientNumber}
-              >
+              <RoundedButton onClick={upsertPatientNumber}>
                 診察券を登録する
-              </Button>
+              </RoundedButton>
             </>
           )}
           {captureImage && (
@@ -186,18 +165,7 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
             </>
           )}
           <Box mb={8} />
-          <Button
-            w={"full"}
-            bg={"green.400"}
-            color={"white"}
-            rounded={"xl"}
-            boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-            _hover={{
-              bg: "green.500",
-            }}
-            _focus={{
-              bg: "green.500",
-            }}
+          <RoundedButton
             onClick={
               captureImage
                 ? reLaunchCamera
@@ -205,14 +173,13 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
                 ? capture
                 : toggleLaunchCamera
             }
-            isLoading={isLoading}
           >
             {captureImage
               ? "診察券を再度読み取る"
               : isCaptureEnable
               ? "診察券を読取る"
               : "カメラを起動する"}
-          </Button>
+          </RoundedButton>
           {captureImage && (
             <>
               <Box mb={8} />
