@@ -69,12 +69,7 @@ export const PatientCard = ({ qrCodeValue, name, avatarImageUrl }: Props) => {
           </Text>
           <Box paddingBottom={2} />
           <Stack mt={6} direction={"row"} spacing={4} align={"right"}>
-            <Avatar
-              src={
-                avatarImageUrl ??
-                "https://avatars0.githubusercontent.com/u/1164541?v=4"
-              }
-            />
+            <Avatar src={avatarImageUrl ?? undefined} />
             <Stack direction={"column"} spacing={0} fontSize={"sm"}>
               <Text fontWeight={600}>{name ?? "no name"} 様</Text>
               <Text color={"gray.500"}>No.&nbsp;{qrCodeValue}</Text>

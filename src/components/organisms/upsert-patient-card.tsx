@@ -1,5 +1,10 @@
 import Predictions from "@aws-amplify/predictions";
-import { CheckIcon, SmallCloseIcon, WarningTwoIcon } from "@chakra-ui/icons";
+import {
+  CheckIcon,
+  CloseIcon,
+  SmallCloseIcon,
+  WarningTwoIcon,
+} from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
@@ -97,7 +102,7 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
             <Text color={"gray.500"}>診察券登録</Text>
           </Stack>
           {isCaptureEnable && (
-            <SlideFade in={isCaptureEnable} offsetX="360px">
+            <SlideFade in={isCaptureEnable} offsetY="360px">
               <Camera webcamRef={webcamRef} captureImage={captureImage} />
             </SlideFade>
           )}
@@ -110,7 +115,7 @@ export const UpsertPatientCard = ({ setQRCodeValue }: Props) => {
                 as={
                   error ||
                   (!isLoading && captureImage && !analyzedNumbers.length)
-                    ? SmallCloseIcon
+                    ? CloseIcon
                     : CheckIcon
                 }
                 color="green.400"
