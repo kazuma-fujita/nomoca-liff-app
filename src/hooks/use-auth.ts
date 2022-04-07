@@ -6,32 +6,33 @@ export const useAuth = () => {
   const [name, setName] = useState<string | null>(null);
   const [avatarImageUrl, setAvatarImageUrl] = useState<string | null>(null);
   useEffect(() => {
-    const func = async () => {
-      console.log("LINE auth start");
-      liff
-        .init({ liffId: process.env.REACT_APP_LIFF_ID as string })
-        .then(() => {
-          if (!liff.isLoggedIn()) {
-            console.log("let login");
-            liff.login({}); // ログインしていなければ最初にログインする
-          } else {
-            liff
-              .getProfile() // ユーザ情報を取得する
-              .then((profile) => {
-                setLineId(profile.userId);
-                setName(profile.displayName);
-                setAvatarImageUrl(profile.pictureUrl ?? null);
-                console.log(
-                  `Name: ${name}, userId: ${lineId}, statusMessage: ${profile.statusMessage}, pictureURL: ${profile.pictureUrl}`
-                );
-              })
-              .catch(function (error) {
-                console.log("Error sending message: " + error);
-              });
-          }
-        });
-    };
-    func();
+    // 本番環境のみLINE認証実行
+    if (process.env.NODE_ENV === "production") {
+      const func = async () => {
+        liff
+          .init({ liffId: process.env.REACT_APP_LIFF_ID as string })
+          .then(() => {
+            if (!liff.isLoggedIn()) {
+              liff.login({}); // ログインしていなければ最初にログインする
+            } else {
+              liff
+                .getProfile() // ユーザ情報を取得する
+                .then((profile) => {
+                  setLineId(profile.userId);
+                  setName(profile.displayName);
+                  setAvatarImageUrl(profile.pictureUrl ?? null);
+                  console.log(
+                    `Name: ${name}, userId: ${lineId}, statusMessage: ${profile.statusMessage}, pictureURL: ${profile.pictureUrl}`
+                  );
+                })
+                .catch(function (error) {
+                  console.log("Error sending message: " + error);
+                });
+            }
+          });
+      };
+      func();
+    }
   }, []);
   return { lineId, name, avatarImageUrl };
 };
