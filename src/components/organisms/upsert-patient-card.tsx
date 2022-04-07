@@ -11,7 +11,6 @@ import {
   NumberInputField,
   Radio,
   RadioGroup,
-  SlideFade,
   Spinner,
   Stack,
   Text,
@@ -104,9 +103,9 @@ export const UpsertPatientCard = ({
   }, [resetState, setQRCodeValue, textValue]);
 
   return (
-    <Center py={0}>
+    <Center>
       <Box
-        maxW={"330px"}
+        maxW={"340px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
@@ -115,20 +114,20 @@ export const UpsertPatientCard = ({
       >
         <Stack
           textAlign={"center"}
-          p={0}
+          p={4}
           color={useColorModeValue("gray.800", "white")}
           align={"center"}
         >
-          <Chip>NOMOCA診察券</Chip>
-          <Stack direction={"row"} align={"center"} justify={"center"}>
+          <Chip>診察券登録</Chip>
+          {/* <Stack direction={"row"} align={"center"} justify={"center"}>
             <Text color={"gray.500"}>診察券登録</Text>
-          </Stack>
+          </Stack> */}
         </Stack>
         {isCaptureEnable && (
           <Camera webcamRef={webcamRef} captureImage={captureImage} />
         )}
 
-        <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
+        <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} py={8}>
           <List spacing={3} fontSize={"sm"}>
             <ListItem>
               <ListIcon
@@ -149,7 +148,7 @@ export const UpsertPatientCard = ({
                 : captureImage && !analyzedNumbers.length
                 ? "診察券を読み取れませんでした。"
                 : isCaptureEnable
-                ? "診察券をカメラに向けて読み取ってください。"
+                ? "診察券番号が書いてある面をカメラに向けて読み取るボタンをタップしてください。"
                 : "カメラを起動して診察券番号を読み取ってください。"}
             </ListItem>
           </List>
@@ -176,8 +175,11 @@ export const UpsertPatientCard = ({
                 ))}
               </RadioGroup>
               <Box mb={8} />
-              <RoundedButton onClick={upsertPatientNumber}>
-                診察券を登録する
+              <RoundedButton
+                onClick={upsertPatientNumber}
+                isLoading={isLoading}
+              >
+                診察券番号を登録する
               </RoundedButton>
             </>
           )}
@@ -201,11 +203,12 @@ export const UpsertPatientCard = ({
                 ? capture
                 : toggleLaunchCamera
             }
+            isLoading={isLoading}
           >
             {captureImage
-              ? "診察券を再度読み取る"
+              ? "診察券番号を再度読み取る"
               : isCaptureEnable
-              ? "診察券を読取る"
+              ? "診察券番号を読み取る"
               : "カメラを起動する"}
           </RoundedButton>
           {captureImage && (
@@ -232,7 +235,10 @@ export const UpsertPatientCard = ({
                 />
               </NumberInput>
               <Box mb={4} />
-              <RoundedButton onClick={upsertPatientNumberWithManual}>
+              <RoundedButton
+                onClick={upsertPatientNumberWithManual}
+                isLoading={isLoading}
+              >
                 入力した診察券番号を登録する
               </RoundedButton>
             </>

@@ -1,6 +1,6 @@
 {
   "auth": {
-    "nomocaliffapp3d3e86ab": {
+    "nomocaliffappaf7ab1f0af7ab1f0": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -8,9 +8,7 @@
       "frontendAuthConfig": {
         "socialProviders": [],
         "usernameAttributes": [],
-        "signupAttributes": [
-          "EMAIL"
-        ],
+        "signupAttributes": [],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
@@ -26,7 +24,7 @@
     }
   },
   "predictions": {
-    "identifyTextb19e9186": {
+    "identifyText8f8d77a7": {
       "providerPlugin": "awscloudformation",
       "service": "RekognitionAndTextract",
       "dependsOn": [],

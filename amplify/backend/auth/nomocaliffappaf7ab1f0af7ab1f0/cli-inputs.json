@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "nomocaliffapp3d3e86ab_identitypool_3d3e86ab",
+    "identityPoolName": "nomocaliffappaf7ab1f0af7ab1f0_identitypool_1bedff6e",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "nomoca3d3e86ab",
-    "userPoolName": "nomocaliffapp3d3e86ab_userpool_3d3e86ab",
+    "resourceNameTruncated": "nomocaaf7ab1f0",
+    "userPoolName": "nomocaliffappaf7ab1f0_userpool_af7ab1f0",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -19,9 +19,7 @@
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
-    "requiredAttributes": [
-      "email"
-    ],
+    "requiredAttributes": [],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
@@ -31,12 +29,16 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "nomoca3d3e86ab_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "nomocaaf7ab1f0_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "3d3e86ab",
-    "resourceName": "nomocaliffapp3d3e86ab",
+    "sharedId": "af7ab1f0",
+    "resourceName": "nomocaliffappaf7ab1f0af7ab1f0",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {},
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
