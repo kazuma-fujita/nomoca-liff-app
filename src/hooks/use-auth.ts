@@ -1,4 +1,5 @@
 import liff from "@line/liff";
+import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 
 export const useAuth = () => {
@@ -28,6 +29,14 @@ export const useAuth = () => {
             );
             const token = liff.getIDToken();
             console.log("token:", token);
+            if (!token) {
+              throw Error("Line ID Token is not found.");
+            }
+            const user = await Auth.signIn(
+              token,
+              process.env.REACT_APP_COGNITO_PASSWORD
+            );
+            console.log("user:", user);
           }
           setLoading(false);
         } catch (err) {
