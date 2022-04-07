@@ -28,7 +28,7 @@ export const Camera = ({ webcamRef, captureImage }: Props) => {
               alt="Screenshot"
               height="27vh"
               // width="330px"
-              width="100%"
+              // width="100%"
               // height={160}
             />
           </div>
@@ -44,8 +44,8 @@ export const Camera = ({ webcamRef, captureImage }: Props) => {
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               style={{
-                width: "100%",
-                // height: "27vh",
+                // width: "100%",
+                height: "27vh",
                 // height: "240",
                 // width: "330px",
               }}
