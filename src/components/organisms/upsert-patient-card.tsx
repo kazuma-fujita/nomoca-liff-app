@@ -124,9 +124,7 @@ export const UpsertPatientCard = ({
           </Stack> */}
         </Stack>
         {isCaptureEnable && (
-          <Box height={160}>
-            <Camera webcamRef={webcamRef} captureImage={captureImage} />
-          </Box>
+          <Camera webcamRef={webcamRef} captureImage={captureImage} />
         )}
 
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
