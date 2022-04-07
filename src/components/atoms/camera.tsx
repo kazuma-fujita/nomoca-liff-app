@@ -6,8 +6,9 @@ import Webcam from "react-webcam";
 window.Buffer = Buffer;
 
 const videoConstraints = {
-  width: 180,
-  height: 120,
+  width: 240,
+  height: 160,
+  aspectRatio: 1.5,
   facingMode: "environment", // environment=背面カメラ、user=インナーカメラ
 };
 
@@ -38,8 +39,8 @@ export const Camera = ({ webcamRef, captureImage }: Props) => {
           <div>
             <Webcam
               audio={false}
-              width={180}
-              height={120}
+              width={240}
+              height={160}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
