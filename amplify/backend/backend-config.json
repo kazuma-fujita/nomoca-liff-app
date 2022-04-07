@@ -24,7 +24,7 @@
     }
   },
   "predictions": {
-    "identifyTextb19e9186": {
+    "identifyText8f8d77a7": {
       "providerPlugin": "awscloudformation",
       "service": "RekognitionAndTextract",
       "dependsOn": [],

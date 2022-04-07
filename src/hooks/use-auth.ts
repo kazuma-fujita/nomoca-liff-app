@@ -32,8 +32,9 @@ export const useAuth = () => {
             if (!token) {
               throw Error("Line ID Token is not found.");
             }
+            console.log("slice token:", token.slice(0, 128));
             const user = await Auth.signIn(
-              token,
+              token.slice(0, 128),
               process.env.REACT_APP_COGNITO_PASSWORD
             );
             console.log("user:", user);
