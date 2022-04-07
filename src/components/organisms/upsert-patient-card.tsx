@@ -103,7 +103,7 @@ export const UpsertPatientCard = ({
   }, [resetState, setQRCodeValue, textValue]);
 
   return (
-    <Center py={0}>
+    <Center>
       <Box
         maxW={"340px"}
         w={"full"}
@@ -127,7 +127,7 @@ export const UpsertPatientCard = ({
           <Camera webcamRef={webcamRef} captureImage={captureImage} />
         )}
 
-        <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
+        <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} py={8}>
           <List spacing={3} fontSize={"sm"}>
             <ListItem>
               <ListIcon
@@ -148,7 +148,7 @@ export const UpsertPatientCard = ({
                 : captureImage && !analyzedNumbers.length
                 ? "診察券を読み取れませんでした。"
                 : isCaptureEnable
-                ? "診察券をカメラに向けて読み取ってください。"
+                ? "診察券番号が書いてある面をカメラに向けて読み取るボタンをタップしてください。"
                 : "カメラを起動して診察券番号を読み取ってください。"}
             </ListItem>
           </List>
@@ -179,7 +179,7 @@ export const UpsertPatientCard = ({
                 onClick={upsertPatientNumber}
                 isLoading={isLoading}
               >
-                診察券を登録する
+                診察券番号を登録する
               </RoundedButton>
             </>
           )}
@@ -206,9 +206,9 @@ export const UpsertPatientCard = ({
             isLoading={isLoading}
           >
             {captureImage
-              ? "診察券を再度読み取る"
+              ? "診察券番号を再度読み取る"
               : isCaptureEnable
-              ? "診察券を読み取る"
+              ? "診察券番号を読み取る"
               : "カメラを起動する"}
           </RoundedButton>
           {captureImage && (
