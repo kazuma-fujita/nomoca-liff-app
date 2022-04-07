@@ -105,7 +105,7 @@ export const UpsertPatientCard = ({
   return (
     <Center py={0}>
       <Box
-        maxW={"330px"}
+        maxW={"340px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
