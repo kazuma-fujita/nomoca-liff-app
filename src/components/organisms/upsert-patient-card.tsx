@@ -11,7 +11,6 @@ import {
   NumberInputField,
   Radio,
   RadioGroup,
-  SlideFade,
   Spinner,
   Stack,
   Text,
@@ -176,7 +175,10 @@ export const UpsertPatientCard = ({
                 ))}
               </RadioGroup>
               <Box mb={8} />
-              <RoundedButton onClick={upsertPatientNumber}>
+              <RoundedButton
+                onClick={upsertPatientNumber}
+                isLoading={isLoading}
+              >
                 診察券を登録する
               </RoundedButton>
             </>
@@ -201,11 +203,12 @@ export const UpsertPatientCard = ({
                 ? capture
                 : toggleLaunchCamera
             }
+            isLoading={isLoading}
           >
             {captureImage
               ? "診察券を再度読み取る"
               : isCaptureEnable
-              ? "診察券を読取る"
+              ? "診察券を読み取る"
               : "カメラを起動する"}
           </RoundedButton>
           {captureImage && (
@@ -232,7 +235,10 @@ export const UpsertPatientCard = ({
                 />
               </NumberInput>
               <Box mb={4} />
-              <RoundedButton onClick={upsertPatientNumberWithManual}>
+              <RoundedButton
+                onClick={upsertPatientNumberWithManual}
+                isLoading={isLoading}
+              >
                 入力した診察券番号を登録する
               </RoundedButton>
             </>
