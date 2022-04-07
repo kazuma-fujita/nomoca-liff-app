@@ -29,7 +29,7 @@ export const Camera = ({ webcamRef, captureImage }: Props) => {
               // height="27vh"
               // width="330px"
               width="100%"
-              // height={240}
+              height={160}
             />
           </div>
         </>

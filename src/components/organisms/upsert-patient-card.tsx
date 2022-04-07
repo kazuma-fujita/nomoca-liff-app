@@ -114,14 +114,14 @@ export const UpsertPatientCard = ({
       >
         <Stack
           textAlign={"center"}
-          p={0}
+          p={4}
           color={useColorModeValue("gray.800", "white")}
           align={"center"}
         >
-          <Chip>NOMOCA診察券</Chip>
-          <Stack direction={"row"} align={"center"} justify={"center"}>
+          <Chip>診察券登録</Chip>
+          {/* <Stack direction={"row"} align={"center"} justify={"center"}>
             <Text color={"gray.500"}>診察券登録</Text>
-          </Stack>
+          </Stack> */}
         </Stack>
         {isCaptureEnable && (
           <Box height={160}>
