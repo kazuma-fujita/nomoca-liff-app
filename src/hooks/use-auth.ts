@@ -28,10 +28,16 @@ export const useAuth = () => {
             if (!token) {
               throw Error("Line ID Token is not found.");
             }
-            const user = await Auth.signIn(
-              token.slice(0, 128),
-              process.env.REACT_APP_COGNITO_PASSWORD
-            );
+            console.log("decoded:", decodeJwt(token));
+            const user = await Auth.signUp({
+              username: token.slice(0, 128),
+              password: process.env.REACT_APP_COGNITO_PASSWORD as string,
+            });
+            console.log("user:", user);
+            // const user = await Auth.signIn(
+            //   token.slice(0, 128),
+            //   process.env.REACT_APP_COGNITO_PASSWORD
+            // );
           }
           setLoading(false);
         } catch (err) {
@@ -45,4 +51,10 @@ export const useAuth = () => {
     }
   }, []);
   return { lineId, name, avatarImageUrl, isLoading, error };
+};
+
+const decodeJwt = (token: string) => {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  return JSON.parse(decodeURIComponent(escape(window.atob(base64))));
 };
