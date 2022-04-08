@@ -29,16 +29,40 @@ export const useAuth = () => {
               throw Error("Line ID Token is not found.");
             }
             console.log("decoded:", decodeJwt(token));
-            const user = await Auth.signUp({
-              username: token.slice(0, 128),
-              password: process.env.REACT_APP_COGNITO_PASSWORD as string,
-            });
-            console.log("user:", user);
+            console.log("ID:", profile.userId);
+            // const user = await Auth.signUp({
+            //   username: token.slice(0, 128),
+            //   password: process.env.REACT_APP_COGNITO_PASSWORD as string,
+            // });
+            // console.log("user:", user);
             // const user = await Auth.signIn(
             //   token.slice(0, 128),
             //   process.env.REACT_APP_COGNITO_PASSWORD
             // );
           }
+          setLoading(false);
+        } catch (err) {
+          const error = err as Error;
+          console.error("Error sending message: " + error.message);
+          setError(error.message);
+          setLoading(false);
+        }
+      };
+      func();
+    } else {
+      setLoading(true);
+      const func = async () => {
+        try {
+          const user = await Auth.signUp({
+            username: "testUser1",
+            // password: process.env.REACT_APP_COGNITO_PASSWORD as string,
+            password: "1qaz2wsx",
+          });
+          console.log("user:", user);
+          // const user = await Auth.signIn(
+          //   token.slice(0, 128),
+          //   process.env.REACT_APP_COGNITO_PASSWORD
+          // );
           setLoading(false);
         } catch (err) {
           const error = err as Error;
