@@ -24,20 +24,14 @@ export const useAuth = () => {
             setLineId(profile.userId);
             setName(profile.displayName);
             setAvatarImageUrl(profile.pictureUrl ?? null);
-            console.log(
-              `Name: ${name}, userId: ${lineId}, statusMessage: ${profile.statusMessage}, pictureURL: ${profile.pictureUrl}`
-            );
             const token = liff.getIDToken();
-            console.log("token:", token);
             if (!token) {
               throw Error("Line ID Token is not found.");
             }
-            console.log("slice token:", token.slice(0, 128));
             const user = await Auth.signIn(
               token.slice(0, 128),
               process.env.REACT_APP_COGNITO_PASSWORD
             );
-            console.log("user:", user);
           }
           setLoading(false);
         } catch (err) {

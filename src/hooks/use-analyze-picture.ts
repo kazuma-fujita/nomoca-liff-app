@@ -20,12 +20,10 @@ export const useAnalyzePicture = () => {
           format: "PLAIN", // PLAIN or FORM or TABLE
         },
       });
-      console.log("response:", response);
       const numbers = response.text.words
         .filter((word) => word.text && /^-?\d+$/.test(word.text))
         .map((word) => word.text!);
       // .map((word) => Number(word.text));
-      console.log("numbers:", numbers);
       setAnalyzedNumbers(numbers);
       setIsLoading(false);
     } catch (err) {
