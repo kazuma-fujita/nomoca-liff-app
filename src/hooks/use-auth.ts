@@ -28,6 +28,7 @@ export const useAuth = () => {
             if (!token) {
               throw Error("Line ID Token is not found.");
             }
+            console.log("token:", token);
             console.log("decoded:", decodeJwt(token));
             console.log("ID:", profile.userId);
             // const user = await Auth.signUp({
