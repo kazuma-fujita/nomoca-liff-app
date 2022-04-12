@@ -22,7 +22,7 @@ export const useAuth = () => {
         // ログイン判定
         if (!liff.isLoggedIn()) {
           console.log("It tries liff logging.");
-          liff.login({}); // ログインしていなければ最初にログインする
+          liff.login(); // ログインしていなければ最初にログインする
         } else {
           console.log("It tries get profile after logging in.");
           const profile = await liff.getProfile(); // ユーザ情報を取得する
@@ -33,7 +33,7 @@ export const useAuth = () => {
         }
         console.log("Auth.federatedSignIn");
         // CognitoのOpenID Connect SignInを実行する
-        await Auth.federatedSignIn({ customProvider: "LINE" });
+        // await Auth.federatedSignIn({ customProvider: "LINE" });
         setLoading(false);
       } catch (err) {
         const error = err as Error;
