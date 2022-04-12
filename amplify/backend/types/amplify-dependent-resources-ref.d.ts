@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "nomocaliffappaf7ab1f0af7ab1f0": {
+        "nomocaliffappeb62764d": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -11,7 +11,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "predictions": {
-        "identifyText8f8d77a7": {
+        "identifyTextc26fb80f": {
             "region": "string",
             "format": "string"
         }

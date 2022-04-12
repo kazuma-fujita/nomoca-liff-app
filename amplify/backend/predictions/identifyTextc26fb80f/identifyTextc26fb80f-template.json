@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"7.6.26\",\"stackType\":\"predictions-RekognitionAndTextract\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.0.1\",\"stackType\":\"predictions-RekognitionAndTextract\",\"metadata\":{}}",
   "Parameters": {
     "resourceName": {
       "Type": "String"
