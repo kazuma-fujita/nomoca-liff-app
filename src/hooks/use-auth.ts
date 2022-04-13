@@ -15,6 +15,7 @@ export const useAuth = () => {
       setLoading(true);
       try {
         console.log("loading true");
+        await Auth.federatedSignIn({ customProvider: "LINE" });
         // 初期化
         await liff.init({
           liffId: process.env.REACT_APP_LIFF_ID as string,
