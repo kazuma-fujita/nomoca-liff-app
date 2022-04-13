@@ -14,12 +14,12 @@ export const useAuth = () => {
     const func = async () => {
       setLoading(true);
       try {
-        console.log("loading true");
-        await Auth.federatedSignIn({ customProvider: "LINE" });
+        console.log("before liff init");
         // 初期化
         await liff.init({
           liffId: process.env.REACT_APP_LIFF_ID as string,
         });
+        console.log("after liff init");
         // ログイン判定
         if (!liff.isLoggedIn()) {
           console.log("It tries liff logging.");
@@ -31,10 +31,12 @@ export const useAuth = () => {
           setName(profile.displayName);
           setAvatarImageUrl(profile.pictureUrl ?? null);
           console.log("line ID:", profile.userId);
+          console.log("name:", profile.displayName);
+          console.log("picture:", profile.pictureUrl);
         }
         console.log("Auth.federatedSignIn");
         // CognitoのOpenID Connect SignInを実行する
-        // await Auth.federatedSignIn({ customProvider: "LINE" });
+        await Auth.federatedSignIn({ customProvider: "LINE" });
         setLoading(false);
       } catch (err) {
         const error = err as Error;

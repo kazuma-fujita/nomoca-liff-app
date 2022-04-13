@@ -1,4 +1,5 @@
-import { Box, Grid, VStack } from "@chakra-ui/react";
+import { Box, Grid, VStack, Button } from "@chakra-ui/react";
+import { Auth } from "aws-amplify";
 import * as React from "react";
 import { useState } from "react";
 import { useAuth } from "../../hooks/use-auth";
@@ -27,6 +28,7 @@ export const AppTemplate = () => {
               setIsUpdateQRCode={setIsUpdateQRCode}
             />
           )}
+          <Button onClick={() => Auth.signOut()} />
         </VStack>
       </Grid>
     </Box>
