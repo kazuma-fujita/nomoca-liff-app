@@ -26,7 +26,7 @@
       "function": {
         "nomocaliffappeb62764dPreSignup": {
           "deploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
-          "s3Key": "amplify-builds/nomocaliffappeb62764dPreSignup-3567622f55526938784b-build.zip"
+          "s3Key": "amplify-builds/nomocaliffappeb62764dPreSignup-4251377835354d707776-build.zip"
         }
       }
     }

@@ -1,15 +1,47 @@
+import { CognitoUser } from "@aws-amplify/auth";
 import liff from "@line/liff";
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 
+const cognitoAuth = async (username: string): Promise<CognitoUser> => {
+  try {
+    console.log("check cognito signin");
+    // Cognito signin確認
+    return await Auth.currentAuthenticatedUser();
+  } catch (err) {
+    // 未認証の場合必ずnot authenticated errorが返却される
+    const password = process.env.REACT_APP_COGNITO_USER_PASSWORD as string;
+    try {
+      console.log("execute cognito signin");
+      // signin処理
+      return await Auth.signIn({ username: username, password: password });
+    } catch (err) {
+      try {
+        console.log("execute cognito signup");
+        // signUp処理 裏でPre sign-up Lambda Triggersが起動し確認コード認証をスキップ
+        const signUpResult = await Auth.signUp({
+          username: username,
+          password: password,
+        });
+        return signUpResult.user;
+      } catch (err) {
+        const error = err as Error;
+        console.error("Cognito auth error: ", error.message);
+        throw error;
+      }
+    }
+  }
+};
+
 export const useAuth = () => {
+  const [user, setUser] = useState<CognitoUser | null>(null);
   const [name, setName] = useState<string | null>(null);
   const [avatarImageUrl, setAvatarImageUrl] = useState<string | null>(null);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const func = async () => {
+    (async () => {
       setLoading(true);
       try {
         console.log("before liff init");
@@ -20,35 +52,33 @@ export const useAuth = () => {
         console.log("after liff init");
         // ログイン判定
         if (!liff.isLoggedIn()) {
+          setLoading(false);
           console.log("It tries liff logging.");
-          liff.login(); // ログインしていなければ最初にログインする
-        } else {
-          console.log("It tries get profile after logging in.");
-          const profile = await liff.getProfile(); // ユーザ情報を取得する
-          setName(profile.displayName);
-          setAvatarImageUrl(profile.pictureUrl ?? null);
-          console.log("line ID:", profile.userId);
-          console.log("name:", profile.displayName);
-          console.log("picture:", profile.pictureUrl);
-
-          const cognitoUser = await Auth.signUp({
-            username: profile.userId,
-            password: process.env.REACT_APP_COGNITO_USER_PASSWORD as string,
-          });
-          console.log("cognitoUser:", cognitoUser);
+          liff.login(); // ログインしていなければLINE Auth実行
+          return;
         }
+        console.log("It tries get profile after LINE logging in.");
+        const profile = await liff.getProfile(); // LINEユーザ情報取得
+        setName(profile.displayName);
+        setAvatarImageUrl(profile.pictureUrl ?? null);
+        console.log("line ID:", profile.userId);
+        console.log("name:", profile.displayName);
+        console.log("picture:", profile.pictureUrl);
+        // Cognito認証処理
+        const cognitoUser = await cognitoAuth(profile.userId);
+        setUser(cognitoUser);
+        console.log("cognitoUser:", cognitoUser);
         setLoading(false);
       } catch (err) {
         const error = err as Error;
-        console.error("Error sending message: " + error.message);
+        console.error("Auth error:", error.message);
         setError(error.message);
         setLoading(false);
       }
-    };
-    func();
+    })();
   }, []);
 
-  return { name, avatarImageUrl, isLoading, error };
+  return { user, name, avatarImageUrl, isLoading, error };
 };
 
 // export const useAuth = () => {
