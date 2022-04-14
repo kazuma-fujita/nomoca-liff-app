@@ -1,4 +1,12 @@
-import { Box, Grid, VStack, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  VStack,
+  Button,
+  Spinner,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import * as React from "react";
 import { useState } from "react";
@@ -14,7 +22,14 @@ export const AppTemplate = () => {
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <VStack spacing={8}>
-          {qrCodeValue && !isUpdateQRCode ? (
+          {isLoading && <Spinner color="green.300" size={"lg"} />}
+          {error && (
+            <Alert status="error" fontSize={"sm"} rounded={"xl"}>
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
+          {(!isLoading || !error) && qrCodeValue && !isUpdateQRCode ? (
             <PatientCard
               qrCodeValue={qrCodeValue}
               name={name}
