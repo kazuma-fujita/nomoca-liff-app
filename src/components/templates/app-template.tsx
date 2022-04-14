@@ -7,7 +7,7 @@ import { PatientCard } from "../organisms/patient-card";
 import { UpsertPatientCard } from "../organisms/upsert-patient-card";
 
 export const AppTemplate = () => {
-  const { name, avatarImageUrl } = useAuth();
+  const { name, avatarImageUrl, isLoading, error } = useAuth();
   const [qrCodeValue, setQRCodeValue] = useState<string | null>(null);
   const [isUpdateQRCode, setIsUpdateQRCode] = useState(false);
   return (

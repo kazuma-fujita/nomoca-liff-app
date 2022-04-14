@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "nomocaliffappec814038ec814038",
+  "functionName": "nomocaliffappec814038ec814038PreSignup",
+  "resourceName": "nomocaliffappec814038ec814038PreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/snapshot/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "roleName": "nomocaliffappec814038ec814038PreSignup",
+  "skipEdit": true,
+  "enableCors": false
+}
