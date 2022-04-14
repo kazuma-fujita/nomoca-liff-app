@@ -1,8 +1,6 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "nomocaliffappeb62764d_identitypool_eb62764d",
-    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "nomocaeb62764d",
     "userPoolName": "nomocaliffappeb62764d_userpool_eb62764d",
     "autoVerifiedAttributes": [
@@ -33,9 +31,13 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "eb62764d",
     "resourceName": "nomocaliffappeb62764d",
-    "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
-    "triggers": {},
+    "authSelections": "userPoolOnly",
+    "useDefault": "manual",
+    "triggers": {
+      "PreSignup": [
+        "custom"
+      ]
+    },
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -53,6 +55,25 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "nomocaliffappeb62764dPreSignup",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "hostedUI": false,
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreSignUp\",\n    \"lambdaFunctionName\": \"nomocaliffappeb62764dPreSignup\"\n  }\n]",
+    "permissions": []
   }
 }
