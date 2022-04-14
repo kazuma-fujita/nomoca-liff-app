@@ -1,46 +1,6 @@
 {
-  "auth": {
-    "nomocaliffappeb62764d": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "nomocaliffappeb62764dPreSignup",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "signupAttributes": [],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
-    }
-  },
-  "predictions": {
-    "identifyTextc26fb80f": {
-      "providerPlugin": "awscloudformation",
-      "service": "RekognitionAndTextract",
-      "dependsOn": [],
-      "identifyType": "identifyText"
-    }
-  },
+  "auth": {},
+  "predictions": {},
   "hosting": {
     "amplifyhosting": {
       "service": "amplifyhosting",
@@ -48,11 +8,5 @@
       "lastPushTimeStamp": "2022-04-05T11:19:00.918Z"
     }
   },
-  "function": {
-    "nomocaliffappeb62764dPreSignup": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  }
+  "function": {}
 }

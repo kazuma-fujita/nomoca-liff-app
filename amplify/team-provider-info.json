@@ -14,19 +14,12 @@
     },
     "categories": {
       "auth": {
-        "true": {},
-        "nomocaliffappeb62764d": {}
+        "true": {}
       },
       "hosting": {
         "amplifyhosting": {
           "appId": "d3qzz59506aeoz",
           "type": "cicd"
-        }
-      },
-      "function": {
-        "nomocaliffappeb62764dPreSignup": {
-          "deploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
-          "s3Key": "amplify-builds/nomocaliffappeb62764dPreSignup-4251377835354d707776-build.zip"
         }
       }
     }
