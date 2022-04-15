@@ -11,20 +11,14 @@ import {
 import QRCode from "react-qr-code";
 import { Chip } from "../atoms/chip";
 import { FaCamera } from "react-icons/fa";
+import { useFetchUser } from "../../hooks/use-fetch-user";
 
 type Props = {
-  qrCodeValue: string | null;
-  name: string | null;
-  avatarImageUrl: string | null;
-  setIsUpdateQRCode: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PatientCard = ({
-  qrCodeValue,
-  name,
-  avatarImageUrl,
-  setIsUpdateQRCode,
-}: Props) => {
+export const PatientCard = ({ setIsUpdate }: Props) => {
+  const { data } = useFetchUser();
   return (
     <Center py={12}>
       <Box
@@ -61,8 +55,8 @@ export const PatientCard = ({
             },
           }}
         >
-          {qrCodeValue ? (
-            <QRCode value={qrCodeValue} />
+          {data && data.medicalRecordId ? (
+            <QRCode value={data.medicalRecordId} />
           ) : (
             <Image
               rounded={"lg"}
@@ -77,11 +71,17 @@ export const PatientCard = ({
           <Chip>NOMOCA診察券</Chip>
           <Box paddingBottom={2} />
           <Stack mt={6} direction={"row"} spacing={4} align={"right"}>
-            <Avatar src={avatarImageUrl ?? undefined} />
-            <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-              <Text fontWeight={600}>{name ?? "no name"} 様</Text>
-              <Text color={"gray.500"}>No.&nbsp;{qrCodeValue}</Text>
-            </Stack>
+            {data && (
+              <>
+                <Avatar src={data.avatarImageUrl ?? undefined} />
+                <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+                  <Text fontWeight={600}>{data.name ?? "no name"} 様</Text>
+                  <Text color={"gray.500"}>
+                    No.&nbsp;{data.medicalRecordId ?? "----"}
+                  </Text>
+                </Stack>
+              </>
+            )}
           </Stack>
         </Stack>
         <Box pt={4} textAlign="end">
@@ -89,7 +89,7 @@ export const PatientCard = ({
             aria-label="launch camera"
             icon={<FaCamera />}
             size="sm"
-            onClick={() => setIsUpdateQRCode(true)}
+            onClick={() => setIsUpdate(true)}
           />
         </Box>
       </Box>

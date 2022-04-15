@@ -1,64 +1,84 @@
 import { GraphQLResult } from "@aws-amplify/api";
+import { API, graphqlOperation } from "aws-amplify";
+import { useCallback, useState } from "react";
+import { useSWRConfig } from "swr";
 import {
   CreatePatientInput,
   CreatePatientMutation,
   CreatePatientMutationVariables,
-  Patient,
   UpdatePatientInput,
   UpdatePatientMutation,
   UpdatePatientMutationVariables,
 } from "../API";
-import { API, graphqlOperation } from "aws-amplify";
 import {
   createPatient as createPatientMutation,
   updatePatient as updatePatientMutation,
 } from "../graphql/mutations";
-import { useCallback, useState } from "react";
 import { parseResponseError } from "../utilities/parse-response-error";
+import { useFetchUser, User } from "./use-fetch-user";
 
 export const useUpsertPatient = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const { mutate } = useSWRConfig();
+  const { swrKey } = useFetchUser();
 
-  const upsertPatient = async (param: Patient) => {
-    setIsLoading(true);
-    try {
-      let ret = null;
-      const inputParam = {
-        medicalRecordId: param.medicalRecordId,
-      };
-      if (!param.id) {
-        const input: CreatePatientInput = { ...inputParam };
-        const variables: CreatePatientMutationVariables = { input: input };
-        const result = (await API.graphql(
-          graphqlOperation(createPatientMutation, variables)
-        )) as GraphQLResult<CreatePatientMutation>;
-        if (!result.data || !result.data.createPatient) {
-          throw Error("The API created data but it returned null.");
+  const onUpsertPatient =
+    (param: User) =>
+    async (data: User): Promise<User> => {
+      try {
+        if (!param.medicalRecordId) {
+          throw Error("A medical record ID is not found.");
         }
-        ret = result.data.createPatient;
-      } else {
-        // Update Patient
-        const input: UpdatePatientInput = { id: param.id, ...inputParam };
-        const variables: UpdatePatientMutationVariables = { input: input };
-        const result = (await API.graphql(
-          graphqlOperation(updatePatientMutation, variables)
-        )) as GraphQLResult<UpdatePatientMutation>;
-        if (!result.data || !result.data.updatePatient) {
-          throw Error("The API updated data but it returned null.");
+        const inputParam = {
+          medicalRecordId: param.medicalRecordId,
+        };
+        if (!param.patientId) {
+          const input: CreatePatientInput = { ...inputParam };
+          const variables: CreatePatientMutationVariables = { input: input };
+          const result = (await API.graphql(
+            graphqlOperation(createPatientMutation, variables)
+          )) as GraphQLResult<CreatePatientMutation>;
+          if (!result.data || !result.data.createPatient) {
+            throw Error("The API created data but it returned null.");
+          }
+          setIsLoading(false);
+          setError(null);
+          return {
+            ...data,
+            patientId: result.data.createPatient.id,
+            medicalRecordId: param.medicalRecordId,
+          };
+        } else {
+          // Update Patient
+          const input: UpdatePatientInput = {
+            id: param.patientId,
+            ...inputParam,
+          };
+          const variables: UpdatePatientMutationVariables = { input: input };
+          const result = (await API.graphql(
+            graphqlOperation(updatePatientMutation, variables)
+          )) as GraphQLResult<UpdatePatientMutation>;
+          if (!result.data || !result.data.updatePatient) {
+            throw Error("The API updated data but it returned null.");
+          }
+          setIsLoading(false);
+          setError(null);
+          return { ...data, medicalRecordId: param.medicalRecordId };
         }
-        ret = result.data.updatePatient;
+      } catch (error) {
+        const errorResponse = parseResponseError(error);
+        setIsLoading(false);
+        setError(errorResponse);
+        throw errorResponse;
       }
-      setIsLoading(false);
-      setError(null);
-      return ret;
-    } catch (error) {
-      const errorResponse = parseResponseError(error);
-      setIsLoading(false);
-      setError(errorResponse);
-      throw errorResponse;
-    }
-  };
+    };
+
+  // // mutateを実行してstoreで保持しているstateを更新。mutateの第1引数にはkeyを指定し、第2引数で状態変更を実行する関数を指定。mutateの戻り値はPromise<any>。
+  const upsertPatient = useCallback(
+    async (param: User) => mutate(swrKey, onUpsertPatient(param), false),
+    [mutate, swrKey]
+  );
 
   const resetState = useCallback(() => {
     setIsLoading(false);

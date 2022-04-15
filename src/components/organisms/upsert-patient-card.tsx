@@ -13,28 +13,23 @@ import {
   RadioGroup,
   Spinner,
   Stack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
+import { useFetchUser } from "../../hooks/use-fetch-user";
+import { useUpsertPatient } from "../../hooks/use-upsert-patient";
 import { Camera } from "../atoms/camera";
 import { Chip } from "../atoms/chip";
 import { RoundedButton } from "../atoms/rounded-button";
 import { RoundedGrayButton } from "../atoms/rounded-gray-button";
 
 type Props = {
-  setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;
-  isUpdateQRCode: boolean;
-  setIsUpdateQRCode: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const UpsertPatientCard = ({
-  setQRCodeValue,
-  isUpdateQRCode,
-  setIsUpdateQRCode,
-}: Props) => {
+export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
   const {
     analyzePicture,
     analyzedNumbers,
@@ -46,13 +41,15 @@ export const UpsertPatientCard = ({
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
   const [captureImage, setCaptureImage] = useState<string | null>(null);
   const webcamRef = useRef<Webcam>(null);
+  const { upsertPatient } = useUpsertPatient();
+  const { data } = useFetchUser();
 
   const resetState = useCallback(() => {
     setCaptureImage(null);
     setCaptureEnable(false);
-    setIsUpdateQRCode(false);
     resetAnalyzedData();
-  }, [resetAnalyzedData, setIsUpdateQRCode]);
+    setIsUpdate(false);
+  }, [resetAnalyzedData, setIsUpdate]);
 
   const reLaunchCamera = useCallback(() => {
     setCaptureImage(null);
@@ -77,10 +74,14 @@ export const UpsertPatientCard = ({
       // TODO: 数字判定、nullエラー判定
       return;
     }
-    // TODO: DB登録処理
-    setQRCodeValue(selectedRadioValue);
+    // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
+    // data.patientIdはpatientがfetch出来なかった場合nullが入る。
+    upsertPatient({
+      patientId: data && data.patientId,
+      medicalRecordId: selectedRadioValue,
+    });
     resetState();
-  }, [resetState, selectedRadioValue, setQRCodeValue]);
+  }, [data, resetState, selectedRadioValue, upsertPatient]);
 
   const [textValue, setTextValue] = useState("");
 
@@ -98,9 +99,12 @@ export const UpsertPatientCard = ({
       return;
     }
     // TODO: DB登録処理
-    setQRCodeValue(textValue);
+    upsertPatient({
+      patientId: data && data.patientId,
+      medicalRecordId: textValue,
+    });
     resetState();
-  }, [resetState, setQRCodeValue, textValue]);
+  }, [data, resetState, textValue, upsertPatient]);
 
   return (
     <Center>
@@ -119,9 +123,6 @@ export const UpsertPatientCard = ({
           align={"center"}
         >
           <Chip>診察券登録</Chip>
-          {/* <Stack direction={"row"} align={"center"} justify={"center"}>
-            <Text color={"gray.500"}>診察券登録</Text>
-          </Stack> */}
         </Stack>
         {isCaptureEnable && (
           <Camera webcamRef={webcamRef} captureImage={captureImage} />
@@ -243,7 +244,7 @@ export const UpsertPatientCard = ({
               </RoundedButton>
             </>
           )}
-          {isUpdateQRCode && (
+          {data && data.patientId && (
             <>
               <Box mb={8} />
               <RoundedGrayButton onClick={resetState}>
