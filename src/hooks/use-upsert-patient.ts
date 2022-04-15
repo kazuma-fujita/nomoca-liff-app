@@ -74,7 +74,8 @@ export const useUpsertPatient = () => {
       }
     };
 
-  // // mutateを実行してstoreで保持しているstateを更新。mutateの第1引数にはkeyを指定し、第2引数で状態変更を実行する関数を指定。mutateの戻り値はPromise<any>。
+  // mutateを実行してstoreで保持しているstateを更新。mutateの第1引数にはkeyを指定し、第2引数で状態変更を実行する関数を指定。mutateの戻り値はPromise<any>。
+  // 第3引数にfalseを指定した場合はfetchは実行せずローカルstateのみ更新
   const upsertPatient = useCallback(
     async (param: User) => mutate(swrKey, onUpsertPatient(param), false),
     [mutate, swrKey]

@@ -53,7 +53,7 @@ const fetcher = async (): Promise<User | null> => {
     // Cognito認証処理
     const cognitoUser = await cognitoAuth(profile.userId);
     console.log("cognitoUser:", cognitoUser);
-    const patient = await getPatient();
+    const patient = await fetchPatient();
     console.log("patient:", patient);
     return {
       patientId: patient ? patient.id : null,
@@ -94,7 +94,7 @@ const cognitoAuth = async (username: string): Promise<CognitoUser> => {
   }
 };
 
-const getPatient = async (): Promise<Patient | null> => {
+const fetchPatient = async (): Promise<Patient | null> => {
   // Graphql query操作実行
   const result = (await API.graphql(
     graphqlOperation(listPatients)
@@ -106,9 +106,11 @@ const getPatient = async (): Promise<Patient | null> => {
   ) {
     throw Error("It was returned null after the API had fetched data.");
   }
+
   const patients = result.data.listPatients.items as Patient[];
   if (patients.length > 1) {
     throw Error("It was found two patients or over.");
   }
+
   return patients.length ? patients[0] : null;
 };
