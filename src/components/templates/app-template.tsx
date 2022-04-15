@@ -24,7 +24,7 @@ export const AppTemplate = () => {
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <VStack spacing={8}>
-          {isLoading && <Spinner color="green.300" size={"lg"} />}
+          {isLoading && <Spinner color="green.300" size={"xl"} mt={32} />}
           {error && (
             <Alert status="error" fontSize={"sm"} rounded={"xl"}>
               <AlertIcon />

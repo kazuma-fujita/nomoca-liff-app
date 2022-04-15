@@ -37,6 +37,7 @@ export const useAnalyzePicture = () => {
   const resetAnalyzedData = useCallback(() => {
     setAnalyzedNumbers([]);
     setError(null);
+    setIsLoading(false);
   }, []);
 
   return {

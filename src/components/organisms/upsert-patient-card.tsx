@@ -7,10 +7,6 @@ import {
   List,
   ListIcon,
   ListItem,
-  NumberInput,
-  NumberInputField,
-  Radio,
-  RadioGroup,
   Spinner,
   Stack,
   useColorModeValue,
@@ -24,6 +20,8 @@ import { Camera } from "../atoms/camera";
 import { Chip } from "../atoms/chip";
 import { RoundedButton } from "../atoms/rounded-button";
 import { RoundedGrayButton } from "../atoms/rounded-gray-button";
+import { MedicalRecordIdRadioButtonForm } from "../molecules/medical-record-id-radio-button-form";
+import { MedicalRecordIdTextFieldForm } from "../molecules/medical-record-id-text-field-form";
 
 type Props = {
   setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,18 +36,23 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
     resetAnalyzedData,
   } = useAnalyzePicture();
   const [isCaptureEnable, setCaptureEnable] = useState(false);
-  const [selectedRadioValue, setSelectedRadioValue] = useState("");
   const [captureImage, setCaptureImage] = useState<string | null>(null);
   const webcamRef = useRef<Webcam>(null);
-  const { upsertPatient } = useUpsertPatient();
+  const {
+    upsertPatient,
+    isLoading: isUpsertLoading,
+    error: isUpsertError,
+    resetState: resetUpsertState,
+  } = useUpsertPatient();
   const { data } = useFetchUser();
 
   const resetState = useCallback(() => {
     setCaptureImage(null);
     setCaptureEnable(false);
     resetAnalyzedData();
+    resetUpsertState();
     setIsUpdate(false);
-  }, [resetAnalyzedData, setIsUpdate]);
+  }, [resetAnalyzedData, resetUpsertState, setIsUpdate]);
 
   const reLaunchCamera = useCallback(() => {
     setCaptureImage(null);
@@ -64,47 +67,12 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
+      // キャプチャ画像確認用imgタグに値をセット
       setCaptureImage(imageSrc);
+      // 画像解析実行
       analyzePicture(imageSrc);
     }
   }, [analyzePicture]);
-
-  const upsertPatientNumber = useCallback(() => {
-    if (!selectedRadioValue) {
-      // TODO: 数字判定、nullエラー判定
-      return;
-    }
-    // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
-    // data.patientIdはpatientがfetch出来なかった場合nullが入る。
-    upsertPatient({
-      patientId: data && data.patientId,
-      medicalRecordId: selectedRadioValue,
-    });
-    resetState();
-  }, [data, resetState, selectedRadioValue, upsertPatient]);
-
-  const [textValue, setTextValue] = useState("");
-
-  const handleTextChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      // TODO: 数字Validation
-      setTextValue(event.target.value);
-    },
-    []
-  );
-
-  const upsertPatientNumberWithManual = useCallback(() => {
-    if (!textValue) {
-      // TODO: 数字判定、nullエラー判定
-      return;
-    }
-    // TODO: DB登録処理
-    upsertPatient({
-      patientId: data && data.patientId,
-      medicalRecordId: textValue,
-    });
-    resetState();
-  }, [data, resetState, textValue, upsertPatient]);
 
   return (
     <Center>
@@ -162,27 +130,13 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
             </Alert>
           )}
           {captureImage && analyzedNumbers.length > 0 && (
-            <>
-              <RadioGroup
-                onChange={setSelectedRadioValue}
-                value={selectedRadioValue}
-              >
-                {analyzedNumbers.map((patientNumber, index) => (
-                  <Stack key={patientNumber + index} pl={8} spacing={8}>
-                    <Radio colorScheme="green" value={patientNumber}>
-                      {patientNumber}
-                    </Radio>
-                  </Stack>
-                ))}
-              </RadioGroup>
-              <Box mb={8} />
-              <RoundedButton
-                onClick={upsertPatientNumber}
-                isLoading={isLoading}
-              >
-                診察券番号を登録する
-              </RoundedButton>
-            </>
+            <MedicalRecordIdRadioButtonForm
+              analyzedNumbers={analyzedNumbers}
+              upsertPatient={upsertPatient}
+              isLoading={isUpsertLoading}
+              error={isUpsertError}
+              resetState={resetState}
+            />
           )}
           {captureImage && (
             <>
@@ -226,22 +180,12 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
                 </ListItem>
               </List>
               <Box mb={8} />
-              <NumberInput>
-                <NumberInputField
-                  placeholder="診察券番号"
-                  _placeholder={{ color: "inherit" }}
-                  value={textValue}
-                  onChange={handleTextChange}
-                  disabled={isLoading}
-                />
-              </NumberInput>
-              <Box mb={4} />
-              <RoundedButton
-                onClick={upsertPatientNumberWithManual}
-                isLoading={isLoading}
-              >
-                入力した診察券番号を登録する
-              </RoundedButton>
+              <MedicalRecordIdTextFieldForm
+                upsertPatient={upsertPatient}
+                isLoading={isUpsertLoading}
+                error={isUpsertError}
+                resetState={resetState}
+              />
             </>
           )}
           {data && data.patientId && (
