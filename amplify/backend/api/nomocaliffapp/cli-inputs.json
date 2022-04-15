@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "nomocaliffapp",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/kazuma/Documents/github/react/nomoca-liff-app/amplify/backend/api/nomocaliffapp/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authnomocaliffappec814038ec814038"
+    }
+  }
+}
