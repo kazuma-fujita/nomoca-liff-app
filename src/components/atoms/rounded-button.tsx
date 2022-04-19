@@ -1,13 +1,15 @@
 import { Button } from "@chakra-ui/react";
 
 type Props = {
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   isLoading: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  type?: "submit" | "reset" | "button";
 };
 
 export const RoundedButton: React.FC<Props> = ({
-  onClick,
   isLoading,
+  onClick,
+  type,
   children,
 }) => {
   return (
@@ -23,6 +25,7 @@ export const RoundedButton: React.FC<Props> = ({
       _focus={{
         bg: "green.500",
       }}
+      type={type ?? "button"}
       onClick={onClick}
       isLoading={isLoading}
     >

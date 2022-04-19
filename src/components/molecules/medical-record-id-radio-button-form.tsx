@@ -21,10 +21,11 @@ export const MedicalRecordIdRadioButtonForm = ({
 }: Props) => {
   const { data } = useFetchUser();
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
+  const [validationError, setValidationError] = useState("");
 
   const upsertMedicalRecordId = useCallback(() => {
     if (!selectedRadioValue) {
-      // TODO: 数字判定、nullエラー判定
+      setValidationError("診察券番号を選択してください");
       return;
     }
     // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
@@ -38,16 +39,17 @@ export const MedicalRecordIdRadioButtonForm = ({
 
   return (
     <>
-      {error && <ErrorAlert>{error}</ErrorAlert>}
       <RadioGroup onChange={setSelectedRadioValue} value={selectedRadioValue}>
-        {analyzedNumbers.map((patientNumber, index) => (
-          <Stack key={patientNumber + index} pl={8} spacing={8}>
-            <Radio colorScheme="green" value={patientNumber}>
-              {patientNumber}
+        {analyzedNumbers.map((medicalRecordId, index) => (
+          <Stack key={medicalRecordId + index} pl={8} spacing={8}>
+            <Radio colorScheme="green" value={medicalRecordId}>
+              {medicalRecordId}
             </Radio>
           </Stack>
         ))}
       </RadioGroup>
+      {validationError && <ErrorAlert mt={4}>{validationError}</ErrorAlert>}
+      {error && <ErrorAlert mt={4}>{error}</ErrorAlert>}
       <Box mb={8} />
       <RoundedButton onClick={upsertMedicalRecordId} isLoading={isLoading}>
         診察券番号を登録する
