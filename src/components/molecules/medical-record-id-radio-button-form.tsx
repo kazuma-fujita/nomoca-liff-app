@@ -1,6 +1,7 @@
 import { Box, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { useFetchUser, User } from "../../hooks/use-fetch-user";
+import { ErrorAlert } from "../atoms/error-alert";
 import { RoundedButton } from "../atoms/rounded-button";
 
 type Props = {
@@ -37,6 +38,7 @@ export const MedicalRecordIdRadioButtonForm = ({
 
   return (
     <>
+      {error && <ErrorAlert>{error}</ErrorAlert>}
       <RadioGroup onChange={setSelectedRadioValue} value={selectedRadioValue}>
         {analyzedNumbers.map((patientNumber, index) => (
           <Stack key={patientNumber + index} pl={8} spacing={8}>

@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 
 export const useAnalyzePicture = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [analyzedNumbers, setAnalyzedNumbers] = useState<string[]>([]);
 
   const analyzePicture = useCallback(async (imageSrc: string) => {
@@ -29,7 +29,7 @@ export const useAnalyzePicture = () => {
     } catch (err) {
       const error = err as Error;
       console.error("error:", error.message);
-      setError(error.message);
+      setError(error);
       setIsLoading(false);
     }
   }, []);

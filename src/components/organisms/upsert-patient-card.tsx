@@ -1,4 +1,4 @@
-import { CheckIcon, CloseIcon, WarningTwoIcon } from "@chakra-ui/icons";
+import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
@@ -11,13 +11,13 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useCallback, useRef, useState } from "react";
-import Webcam from "react-webcam";
-import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
+import { useCallback } from "react";
+import { useCaptureImage } from "../../hooks/use-capture-image";
 import { useFetchUser } from "../../hooks/use-fetch-user";
 import { useUpsertPatient } from "../../hooks/use-upsert-patient";
 import { Camera } from "../atoms/camera";
 import { Chip } from "../atoms/chip";
+import { ErrorAlert } from "../atoms/error-alert";
 import { RoundedButton } from "../atoms/rounded-button";
 import { RoundedGrayButton } from "../atoms/rounded-gray-button";
 import { MedicalRecordIdRadioButtonForm } from "../molecules/medical-record-id-radio-button-form";
@@ -29,15 +29,19 @@ type Props = {
 
 export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
   const {
-    analyzePicture,
+    webcamRef,
+    isCaptureEnable,
+    isLoading: isCaptureLoading,
+    error: captureError,
+    captureImage,
     analyzedNumbers,
-    isLoading,
-    error,
-    resetAnalyzedData,
-  } = useAnalyzePicture();
-  const [isCaptureEnable, setCaptureEnable] = useState(false);
-  const [captureImage, setCaptureImage] = useState<string | null>(null);
-  const webcamRef = useRef<Webcam>(null);
+    captureResultIcon,
+    captureResultDescription,
+    captureButtonClickHandler,
+    captureButtonLabel,
+    resetState: resetCaptureState,
+  } = useCaptureImage();
+
   const {
     upsertPatient,
     isLoading: isUpsertLoading,
@@ -47,32 +51,10 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
   const { data } = useFetchUser();
 
   const resetState = useCallback(() => {
-    setCaptureImage(null);
-    setCaptureEnable(false);
-    resetAnalyzedData();
+    resetCaptureState();
     resetUpsertState();
     setIsUpdate(false);
-  }, [resetAnalyzedData, resetUpsertState, setIsUpdate]);
-
-  const reLaunchCamera = useCallback(() => {
-    setCaptureImage(null);
-    setCaptureEnable(true);
-    resetAnalyzedData();
-  }, [resetAnalyzedData, setCaptureEnable]);
-
-  const toggleLaunchCamera = useCallback(() => {
-    setCaptureEnable(!isCaptureEnable);
-  }, [isCaptureEnable, setCaptureEnable]);
-
-  const capture = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot();
-    if (imageSrc) {
-      // キャプチャ画像確認用imgタグに値をセット
-      setCaptureImage(imageSrc);
-      // 画像解析実行
-      analyzePicture(imageSrc);
-    }
-  }, [analyzePicture]);
+  }, [resetCaptureState, resetUpsertState, setIsUpdate]);
 
   return (
     <Center>
@@ -92,6 +74,7 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
         >
           <Chip>診察券登録</Chip>
         </Stack>
+
         {isCaptureEnable && (
           <Camera webcamRef={webcamRef} captureImage={captureImage} />
         )}
@@ -99,36 +82,13 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} py={8}>
           <List spacing={3} fontSize={"sm"}>
             <ListItem>
-              <ListIcon
-                as={
-                  error ||
-                  (!isLoading && captureImage && !analyzedNumbers.length)
-                    ? CloseIcon
-                    : CheckIcon
-                }
-                color="green.400"
-              />
-              {error
-                ? "エラーが発生しました。"
-                : isLoading
-                ? "読込中です。"
-                : captureImage && analyzedNumbers.length
-                ? "診察券番号を選択してください。"
-                : captureImage && !analyzedNumbers.length
-                ? "診察券を読み取れませんでした。"
-                : isCaptureEnable
-                ? "診察券番号が書いてある面をカメラに向けて読み取るボタンをタップしてください。"
-                : "カメラを起動して診察券番号を読み取ってください。"}
+              <ListIcon as={captureResultIcon} color="green.400" />
+              {captureResultDescription}
             </ListItem>
           </List>
           <Box mb={4} />
-          {isLoading && <Spinner color="green.300" size={"lg"} />}
-          {error && (
-            <Alert status="error" fontSize={"sm"} rounded={"xl"}>
-              <AlertIcon />
-              {error}
-            </Alert>
-          )}
+          {isCaptureLoading && <Spinner color="green.300" size={"lg"} />}
+          {captureError && <ErrorAlert>{captureError}</ErrorAlert>}
           {captureImage && analyzedNumbers.length > 0 && (
             <MedicalRecordIdRadioButtonForm
               analyzedNumbers={analyzedNumbers}
@@ -151,20 +111,10 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
           )}
           <Box mb={8} />
           <RoundedButton
-            onClick={
-              captureImage
-                ? reLaunchCamera
-                : isCaptureEnable
-                ? capture
-                : toggleLaunchCamera
-            }
-            isLoading={isLoading}
+            onClick={captureButtonClickHandler}
+            isLoading={isCaptureLoading}
           >
-            {captureImage
-              ? "診察券番号を再度読み取る"
-              : isCaptureEnable
-              ? "診察券番号を読み取る"
-              : "カメラを起動する"}
+            {captureButtonLabel}
           </RoundedButton>
           {captureImage && (
             <>
