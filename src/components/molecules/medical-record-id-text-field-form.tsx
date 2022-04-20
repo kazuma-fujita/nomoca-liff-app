@@ -1,6 +1,14 @@
-import { Box, NumberInput, NumberInputField } from "@chakra-ui/react";
-import { useCallback, useState } from "react";
+import {
+  Box,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
+import { useCallback } from "react";
+import { useForm } from "react-hook-form";
 import { useFetchUser, User } from "../../hooks/use-fetch-user";
+import { ErrorAlert } from "../atoms/error-alert";
 import { RoundedButton } from "../atoms/rounded-button";
 
 type Props = {
@@ -18,45 +26,60 @@ export const MedicalRecordIdTextFieldForm = ({
 }: Props) => {
   const { data } = useFetchUser();
 
-  const [textValue, setTextValue] = useState("");
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-  const handleTextChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      // TODO: 数字Validation
-      setTextValue(event.target.value);
-    },
-    []
+  const submitHandler = handleSubmit(
+    useCallback(
+      async (param) => {
+        console.log("param:", param);
+        try {
+          // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
+          // data.patientIdはpatientがfetch出来なかった場合nullが入る。
+          await upsertPatient({
+            patientId: data && data.patientId,
+            medicalRecordId: param.medicalRecordId,
+          });
+          resetState();
+        } catch (error) {}
+      },
+      [data, resetState, upsertPatient]
+    )
   );
-
-  const upsertMedicalRecordId = useCallback(() => {
-    if (!textValue) {
-      // TODO: 数字判定、nullエラー判定
-      return;
-    }
-    // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
-    // data.patientIdはpatientがfetch出来なかった場合nullが入る。
-    upsertPatient({
-      patientId: data && data.patientId,
-      medicalRecordId: textValue,
-    });
-    resetState();
-  }, [data, resetState, textValue, upsertPatient]);
 
   return (
     <>
-      <NumberInput>
-        <NumberInputField
-          placeholder="診察券番号"
-          _placeholder={{ color: "inherit" }}
-          value={textValue}
-          onChange={handleTextChange}
-          disabled={isLoading}
-        />
-      </NumberInput>
-      <Box mb={4} />
-      <RoundedButton onClick={upsertMedicalRecordId} isLoading={isLoading}>
-        入力した診察券番号を登録する
-      </RoundedButton>
+      <form onSubmit={submitHandler} noValidate>
+        <FormControl isInvalid={errors.medicalRecordId}>
+          <FormLabel htmlFor="medicalRecordId" color="gray.500" fontSize="sm">
+            診察券番号
+          </FormLabel>
+          <Input
+            type="number"
+            autoComplete="off"
+            placeholder="半角数字で入力してください"
+            disabled={isLoading}
+            {...register("medicalRecordId", {
+              required: "診察券番号を入力してください",
+              pattern: {
+                value: /^[0-9]+$/i,
+                message: "診察券番号は半角数字で入力してください",
+              },
+            })}
+          />
+          <FormErrorMessage>
+            {errors.medicalRecordId && errors.medicalRecordId.message}
+          </FormErrorMessage>
+          {error && <ErrorAlert mt={4}>{error}</ErrorAlert>}
+          <Box mb={4} />
+          <RoundedButton type="submit" isLoading={isSubmitting || isLoading}>
+            入力した診察券番号を登録する
+          </RoundedButton>
+        </FormControl>
+      </form>
     </>
   );
 };
