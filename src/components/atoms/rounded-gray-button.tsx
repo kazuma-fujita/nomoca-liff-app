@@ -1,10 +1,9 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 
-type Props = {
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-};
-
-export const RoundedGrayButton: React.FC<Props> = ({ onClick, children }) => {
+export const RoundedGrayButton: React.FC<ButtonProps> = ({
+  children,
+  ...rest
+}) => {
   return (
     <Button
       w={"full"}
@@ -18,7 +17,8 @@ export const RoundedGrayButton: React.FC<Props> = ({ onClick, children }) => {
       _focus={{
         bg: "gray.500",
       }}
-      onClick={onClick}
+      // onClick={onClick}
+      {...rest}
     >
       {children}
     </Button>

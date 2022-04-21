@@ -70,7 +70,22 @@ const cognitoAuth = async (username: string): Promise<CognitoUser> => {
   try {
     console.log("check cognito signin");
     // Cognito signin確認
-    return await Auth.currentAuthenticatedUser();
+    const cognitoUser = await Auth.currentAuthenticatedUser();
+    // Cognitoのusername1文字目を大文字変換
+    // e.g.) LINE userId U61214110a... Cognito username u61214110a...
+    const lineUserId =
+      cognitoUser.username.charAt(0).toUpperCase() +
+      cognitoUser.username.slice(1);
+    // セッション中の username とLINEログインした LINE userId の突き合わせ
+    if (lineUserId !== username) {
+      console.log("Try sign out.");
+      // 別LINEユーザーでログインした場合ログアウト
+      await Auth.signOut({ global: true });
+      // 再帰処理実行
+      cognitoAuth(username);
+    }
+    console.log("return cognitoAuth");
+    return cognitoUser;
   } catch (err) {
     // 未認証の場合必ずnot authenticated errorが返却される
     const password = process.env.REACT_APP_COGNITO_USER_PASSWORD as string;
@@ -108,6 +123,7 @@ const fetchPatient = async (): Promise<Patient | null> => {
   }
 
   const patients = result.data.listPatients.items as Patient[];
+  // LINEユーザー:cognitoユーザー:patientデータは 1:1:1 なので複数patientデータはエラー処理
   if (patients.length > 1) {
     throw Error("It was found two patients or over.");
   }

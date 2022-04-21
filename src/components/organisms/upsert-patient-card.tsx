@@ -1,7 +1,5 @@
 import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
-  Alert,
-  AlertIcon,
   Box,
   Center,
   List,
@@ -45,7 +43,7 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
   const {
     upsertPatient,
     isLoading: isUpsertLoading,
-    error: isUpsertError,
+    error: upsertError,
     resetState: resetUpsertState,
   } = useUpsertPatient();
   const { data } = useFetchUser();
@@ -55,6 +53,8 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
     resetUpsertState();
     setIsUpdate(false);
   }, [resetCaptureState, resetUpsertState, setIsUpdate]);
+
+  const isLoading = isCaptureLoading || isUpsertLoading;
 
   return (
     <Center>
@@ -93,8 +93,8 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
             <MedicalRecordIdRadioButtonForm
               analyzedNumbers={analyzedNumbers}
               upsertPatient={upsertPatient}
-              isLoading={isUpsertLoading}
-              error={isUpsertError}
+              isLoading={isLoading}
+              error={upsertError}
               resetState={resetState}
             />
           )}
@@ -112,7 +112,7 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
           <Box mb={8} />
           <RoundedButton
             onClick={captureButtonClickHandler}
-            isLoading={isCaptureLoading}
+            isLoading={isLoading}
           >
             {captureButtonLabel}
           </RoundedButton>
@@ -132,8 +132,8 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
               <Box mb={8} />
               <MedicalRecordIdTextFieldForm
                 upsertPatient={upsertPatient}
-                isLoading={isUpsertLoading}
-                error={isUpsertError}
+                isLoading={isLoading}
+                error={upsertError}
                 resetState={resetState}
               />
             </>
@@ -141,7 +141,7 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
           {data && data.patientId && (
             <>
               <Box mb={8} />
-              <RoundedGrayButton onClick={resetState}>
+              <RoundedGrayButton onClick={resetState} isLoading={isLoading}>
                 キャンセル
               </RoundedGrayButton>
             </>
