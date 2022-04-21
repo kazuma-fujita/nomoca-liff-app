@@ -1,17 +1,6 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 
-type Props = {
-  isLoading: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  type?: "submit" | "reset" | "button";
-};
-
-export const RoundedButton: React.FC<Props> = ({
-  isLoading,
-  onClick,
-  type,
-  children,
-}) => {
+export const RoundedButton: React.FC<ButtonProps> = ({ children, ...rest }) => {
   return (
     <Button
       w={"full"}
@@ -25,9 +14,7 @@ export const RoundedButton: React.FC<Props> = ({
       _focus={{
         bg: "green.500",
       }}
-      type={type ?? "button"}
-      onClick={onClick}
-      isLoading={isLoading}
+      {...rest}
     >
       {children}
     </Button>

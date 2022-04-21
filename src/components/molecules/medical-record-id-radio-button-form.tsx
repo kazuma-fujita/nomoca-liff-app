@@ -51,7 +51,11 @@ export const MedicalRecordIdRadioButtonForm = ({
       {validationError && <ErrorAlert mt={4}>{validationError}</ErrorAlert>}
       {error && <ErrorAlert mt={4}>{error}</ErrorAlert>}
       <Box mb={8} />
-      <RoundedButton onClick={upsertMedicalRecordId} isLoading={isLoading}>
+      <RoundedButton
+        onClick={upsertMedicalRecordId}
+        isLoading={isLoading}
+        disabled={!selectedRadioValue}
+      >
         診察券番号を登録する
       </RoundedButton>
     </>

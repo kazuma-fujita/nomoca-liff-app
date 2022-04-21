@@ -92,16 +92,26 @@ const cognitoAuth = async (username: string): Promise<CognitoUser> => {
     try {
       console.log("execute cognito signin");
       // signin処理
-      return await Auth.signIn({ username: username, password: password });
+      return await Auth.signIn({
+        username: username,
+        password: password,
+      });
     } catch (err) {
       try {
         console.log("execute cognito signup");
         // signUp処理 裏でPre sign-up Lambda Triggersが起動し確認コード認証をスキップ
-        const signUpResult = await Auth.signUp({
+        await Auth.signUp({
           username: username,
           password: password,
         });
-        return signUpResult.user;
+        console.log("execute cognito signin again");
+        // Cognito user 作成後 改めてsignin処理
+        await Auth.signIn({
+          username: username,
+          password: password,
+        });
+        // 認証出来ているか確認かつ、認証Cognito userを取得
+        return await Auth.currentAuthenticatedUser();
       } catch (error) {
         throw error;
       }
