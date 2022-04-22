@@ -1,14 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Grid,
-  Spinner,
-  VStack,
-} from "@chakra-ui/react";
-import { Auth } from "aws-amplify";
-import * as React from "react";
+import { Alert, AlertIcon, Box, Grid, Spinner, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useFetchUser } from "../../hooks/use-fetch-user";
 import { PatientCard } from "../organisms/patient-card";
@@ -40,7 +30,6 @@ export const AppTemplate = () => {
               )}
             </>
           )}
-          <Button onClick={() => Auth.signOut()} />
         </VStack>
       </Grid>
     </Box>
