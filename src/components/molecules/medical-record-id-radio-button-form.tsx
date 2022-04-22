@@ -1,4 +1,4 @@
-import { Box, Radio, RadioGroup, Stack } from "@chakra-ui/react";
+import { Box, Radio, RadioGroup, Stack, useToast } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { useFetchUser, User } from "../../hooks/use-fetch-user";
 import { ErrorAlert } from "../atoms/error-alert";
@@ -23,6 +23,8 @@ export const MedicalRecordIdRadioButtonForm = ({
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
   const [validationError, setValidationError] = useState("");
 
+  const toast = useToast();
+
   const upsertMedicalRecordId = useCallback(() => {
     if (!selectedRadioValue) {
       setValidationError("診察券番号を選択してください");
@@ -34,8 +36,15 @@ export const MedicalRecordIdRadioButtonForm = ({
       patientId: data && data.patientId,
       medicalRecordId: selectedRadioValue,
     });
+    // 画面状態をリセットし診察券画面表示
     resetState();
-  }, [data, resetState, selectedRadioValue, upsertPatient]);
+    // toast表示
+    toast({
+      title: "診察券番号を登録しました",
+      description: "カメラボタンから再登録ができます",
+      status: "success",
+    });
+  }, [data, resetState, selectedRadioValue, toast, upsertPatient]);
 
   return (
     <>

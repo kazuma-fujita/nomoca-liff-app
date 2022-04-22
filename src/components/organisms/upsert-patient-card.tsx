@@ -26,6 +26,8 @@ type Props = {
 };
 
 export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
+  const { data } = useFetchUser();
+
   const {
     webcamRef,
     isCaptureEnable,
@@ -46,7 +48,6 @@ export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
     error: upsertError,
     resetState: resetUpsertState,
   } = useUpsertPatient();
-  const { data } = useFetchUser();
 
   const resetState = useCallback(() => {
     resetCaptureState();

@@ -4,6 +4,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
@@ -32,6 +33,8 @@ export const MedicalRecordIdTextFieldForm = ({
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const toast = useToast();
+
   const submitHandler = handleSubmit(
     useCallback(
       async (param) => {
@@ -43,10 +46,17 @@ export const MedicalRecordIdTextFieldForm = ({
             patientId: data && data.patientId,
             medicalRecordId: param.medicalRecordId,
           });
+          // 画面状態をリセットし診察券画面表示
           resetState();
+          // toast表示
+          toast({
+            title: "診察券番号を登録しました",
+            description: "カメラボタンから再登録ができます",
+            status: "success",
+          });
         } catch (error) {}
       },
-      [data, resetState, upsertPatient]
+      [data, resetState, upsertPatient, toast]
     )
   );
 
