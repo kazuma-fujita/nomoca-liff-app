@@ -17,6 +17,8 @@ const loggerPrefix = "nomoca-liff-app-logger";
 const appName = "nomoca-liff-app";
 const logStreamName = UUID.generate(); // ユニークなID
 
+console.log("env:", process.env.NODE_ENV);
+
 // sends Amplify logs to Cloud Watch
 Amplify.configure({
   Logging: {
