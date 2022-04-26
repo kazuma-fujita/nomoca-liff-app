@@ -1,5 +1,6 @@
 import Predictions from "@aws-amplify/predictions";
 import { useCallback, useState } from "react";
+import { logger } from "../index";
 
 export const useAnalyzePicture = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,9 +31,16 @@ export const useAnalyzePicture = () => {
 
       setAnalyzedNumbers(numbers);
       setIsLoading(false);
+      logger.info(
+        "It succeeded to an analyze image.",
+        `result values: ${numbers.length > 0 ? numbers.toString() : "none"}`
+      );
     } catch (err) {
       const error = err as Error;
-      console.error("error:", error.message);
+      logger.error(
+        "An error occurred while creating and updating a patient.",
+        error.message
+      );
       setError(error);
       setIsLoading(false);
     }
