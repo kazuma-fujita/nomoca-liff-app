@@ -72,8 +72,11 @@
       }
     ],
     "permissions": [],
-    "authTriggerConnections": [
-      "{\"triggerType\":\"PreSignUp\",\"lambdaFunctionName\":\"nomocaliffappec814038ec814038PreSignup\"}"
-    ]
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreSignUp\",\n    \"lambdaFunctionName\": \"nomocaliffappec814038ec814038PreSignup\"\n  }\n]",
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    }
   }
 }

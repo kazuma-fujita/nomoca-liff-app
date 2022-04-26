@@ -7,9 +7,6 @@ import { UpsertPatientCard } from "../organisms/upsert-patient-card";
 export const AppTemplate = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const { data, isLoading, error } = useFetchUser();
-  console.log("data:", data);
-  console.log("isLoad:", isLoading);
-  console.log("error:", error);
   return (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>

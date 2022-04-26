@@ -17,6 +17,7 @@ import {
 } from "../graphql/mutations";
 import { parseResponseError } from "../utilities/parse-response-error";
 import { useFetchUser, User } from "./use-fetch-user";
+import { logger } from "../index";
 
 export const useUpsertPatient = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,12 +29,15 @@ export const useUpsertPatient = () => {
     (param: User) =>
     async (data: User): Promise<User> => {
       try {
-        if (!param.medicalRecordId) {
+        // 診察券番号はtrim処理をしてから登録
+        const medicalRecordId =
+          param.medicalRecordId && param.medicalRecordId.trim();
+        if (!medicalRecordId) {
           throw Error("A medical record ID is not found.");
         }
         // 診察券番号はtrim処理をしてから登録
         const inputParam = {
-          medicalRecordId: param.medicalRecordId.trim(),
+          medicalRecordId: medicalRecordId,
         };
         if (!param.patientId) {
           const input: CreatePatientInput = { ...inputParam };
@@ -46,10 +50,15 @@ export const useUpsertPatient = () => {
           }
           setIsLoading(false);
           setError(null);
+          const patientId = result.data.createPatient.id;
+          logger.info(
+            "It succeeded to create a patient.",
+            `medical record id: ${medicalRecordId} patientId: ${patientId}`
+          );
           return {
             ...data,
-            patientId: result.data.createPatient.id,
-            medicalRecordId: param.medicalRecordId,
+            patientId: patientId,
+            medicalRecordId: medicalRecordId,
           };
         } else {
           // Update Patient
@@ -66,12 +75,20 @@ export const useUpsertPatient = () => {
           }
           setIsLoading(false);
           setError(null);
-          return { ...data, medicalRecordId: param.medicalRecordId };
+          logger.info(
+            "It succeeded to update a patient.",
+            `medical record id: ${medicalRecordId} patientId: ${param.patientId}`
+          );
+          return { ...data, medicalRecordId: medicalRecordId };
         }
       } catch (error) {
         const errorResponse = parseResponseError(error);
         setIsLoading(false);
         setError(errorResponse);
+        logger.error(
+          "An error occurred while creating and updating a patient.",
+          errorResponse ? errorResponse.message : "An error was not found."
+        );
         throw errorResponse;
       }
     };

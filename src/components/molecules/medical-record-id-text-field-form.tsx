@@ -38,7 +38,6 @@ export const MedicalRecordIdTextFieldForm = ({
   const submitHandler = handleSubmit(
     useCallback(
       async (param) => {
-        console.log("param:", param);
         try {
           // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
           // data.patientIdはpatientがfetch出来なかった場合nullが入る。
