@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "nomocaliffappeb62764d": {
+        "nomocaliffappec814038ec814038": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -11,9 +11,23 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "predictions": {
-        "identifyTextc26fb80f": {
+        "identifyTexta0cd755b": {
             "region": "string",
             "format": "string"
+        }
+    },
+    "function": {
+        "nomocaliffappec814038ec814038PreSignup": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
+        }
+    },
+    "api": {
+        "nomocaliffapp": {
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
         }
     }
 }

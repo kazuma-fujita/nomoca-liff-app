@@ -1,106 +1,61 @@
-import { CheckIcon, CloseIcon, WarningTwoIcon } from "@chakra-ui/icons";
+import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
-  Alert,
-  AlertIcon,
   Box,
   Center,
   List,
   ListIcon,
   ListItem,
-  NumberInput,
-  NumberInputField,
-  Radio,
-  RadioGroup,
   Spinner,
   Stack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useCallback, useRef, useState } from "react";
-import Webcam from "react-webcam";
-import { useAnalyzePicture } from "../../hooks/use-analyze-picture";
+import { useCallback } from "react";
+import { useCaptureImage } from "../../hooks/use-capture-image";
+import { useFetchUser } from "../../hooks/use-fetch-user";
+import { useUpsertPatient } from "../../hooks/use-upsert-patient";
 import { Camera } from "../atoms/camera";
 import { Chip } from "../atoms/chip";
+import { ErrorAlert } from "../atoms/error-alert";
 import { RoundedButton } from "../atoms/rounded-button";
 import { RoundedGrayButton } from "../atoms/rounded-gray-button";
+import { MedicalRecordIdRadioButtonForm } from "../molecules/medical-record-id-radio-button-form";
+import { MedicalRecordIdTextFieldForm } from "../molecules/medical-record-id-text-field-form";
 
 type Props = {
-  setQRCodeValue: React.Dispatch<React.SetStateAction<string | null>>;
-  isUpdateQRCode: boolean;
-  setIsUpdateQRCode: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const UpsertPatientCard = ({
-  setQRCodeValue,
-  isUpdateQRCode,
-  setIsUpdateQRCode,
-}: Props) => {
+export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
+  const { data } = useFetchUser();
+
   const {
-    analyzePicture,
+    webcamRef,
+    isCaptureEnable,
+    isLoading: isCaptureLoading,
+    error: captureError,
+    captureImage,
     analyzedNumbers,
-    isLoading,
-    error,
-    resetAnalyzedData,
-  } = useAnalyzePicture();
-  const [isCaptureEnable, setCaptureEnable] = useState(false);
-  const [selectedRadioValue, setSelectedRadioValue] = useState("");
-  const [captureImage, setCaptureImage] = useState<string | null>(null);
-  const webcamRef = useRef<Webcam>(null);
+    captureResultIcon,
+    captureResultDescription,
+    captureButtonClickHandler,
+    captureButtonLabel,
+    resetState: resetCaptureState,
+  } = useCaptureImage();
+
+  const {
+    upsertPatient,
+    isLoading: isUpsertLoading,
+    error: upsertError,
+    resetState: resetUpsertState,
+  } = useUpsertPatient();
 
   const resetState = useCallback(() => {
-    setCaptureImage(null);
-    setCaptureEnable(false);
-    setIsUpdateQRCode(false);
-    resetAnalyzedData();
-  }, [resetAnalyzedData, setIsUpdateQRCode]);
+    resetCaptureState();
+    resetUpsertState();
+    setIsUpdate(false);
+  }, [resetCaptureState, resetUpsertState, setIsUpdate]);
 
-  const reLaunchCamera = useCallback(() => {
-    setCaptureImage(null);
-    setCaptureEnable(true);
-    resetAnalyzedData();
-  }, [resetAnalyzedData, setCaptureEnable]);
-
-  const toggleLaunchCamera = useCallback(() => {
-    setCaptureEnable(!isCaptureEnable);
-  }, [isCaptureEnable, setCaptureEnable]);
-
-  const capture = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot();
-    if (imageSrc) {
-      setCaptureImage(imageSrc);
-      analyzePicture(imageSrc);
-    }
-  }, [analyzePicture]);
-
-  const upsertPatientNumber = useCallback(() => {
-    if (!selectedRadioValue) {
-      // TODO: 数字判定、nullエラー判定
-      return;
-    }
-    // TODO: DB登録処理
-    setQRCodeValue(selectedRadioValue);
-    resetState();
-  }, [resetState, selectedRadioValue, setQRCodeValue]);
-
-  const [textValue, setTextValue] = useState("");
-
-  const handleTextChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      // TODO: 数字Validation
-      setTextValue(event.target.value);
-    },
-    []
-  );
-
-  const upsertPatientNumberWithManual = useCallback(() => {
-    if (!textValue) {
-      // TODO: 数字判定、nullエラー判定
-      return;
-    }
-    // TODO: DB登録処理
-    setQRCodeValue(textValue);
-    resetState();
-  }, [resetState, setQRCodeValue, textValue]);
+  const isLoading = isCaptureLoading || isUpsertLoading;
 
   return (
     <Center>
@@ -119,10 +74,8 @@ export const UpsertPatientCard = ({
           align={"center"}
         >
           <Chip>診察券登録</Chip>
-          {/* <Stack direction={"row"} align={"center"} justify={"center"}>
-            <Text color={"gray.500"}>診察券登録</Text>
-          </Stack> */}
         </Stack>
+
         {isCaptureEnable && (
           <Camera webcamRef={webcamRef} captureImage={captureImage} />
         )}
@@ -130,58 +83,21 @@ export const UpsertPatientCard = ({
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} py={8}>
           <List spacing={3} fontSize={"sm"}>
             <ListItem>
-              <ListIcon
-                as={
-                  error ||
-                  (!isLoading && captureImage && !analyzedNumbers.length)
-                    ? CloseIcon
-                    : CheckIcon
-                }
-                color="green.400"
-              />
-              {error
-                ? "エラーが発生しました。"
-                : isLoading
-                ? "読込中です。"
-                : captureImage && analyzedNumbers.length
-                ? "診察券番号を選択してください。"
-                : captureImage && !analyzedNumbers.length
-                ? "診察券を読み取れませんでした。"
-                : isCaptureEnable
-                ? "診察券番号が書いてある面をカメラに向けて読み取るボタンをタップしてください。"
-                : "カメラを起動して診察券番号を読み取ってください。"}
+              <ListIcon as={captureResultIcon} color="green.400" />
+              {captureResultDescription}
             </ListItem>
           </List>
           <Box mb={4} />
-          {isLoading && <Spinner color="green.300" size={"lg"} />}
-          {error && (
-            <Alert status="error" fontSize={"sm"} rounded={"xl"}>
-              <AlertIcon />
-              {error}
-            </Alert>
-          )}
+          {isCaptureLoading && <Spinner color="green.300" size={"lg"} />}
+          {captureError && <ErrorAlert>{captureError}</ErrorAlert>}
           {captureImage && analyzedNumbers.length > 0 && (
-            <>
-              <RadioGroup
-                onChange={setSelectedRadioValue}
-                value={selectedRadioValue}
-              >
-                {analyzedNumbers.map((patientNumber, index) => (
-                  <Stack key={patientNumber + index} pl={8} spacing={8}>
-                    <Radio colorScheme="green" value={patientNumber}>
-                      {patientNumber}
-                    </Radio>
-                  </Stack>
-                ))}
-              </RadioGroup>
-              <Box mb={8} />
-              <RoundedButton
-                onClick={upsertPatientNumber}
-                isLoading={isLoading}
-              >
-                診察券番号を登録する
-              </RoundedButton>
-            </>
+            <MedicalRecordIdRadioButtonForm
+              analyzedNumbers={analyzedNumbers}
+              upsertPatient={upsertPatient}
+              isLoading={isLoading}
+              error={upsertError}
+              resetState={resetState}
+            />
           )}
           {captureImage && (
             <>
@@ -196,20 +112,10 @@ export const UpsertPatientCard = ({
           )}
           <Box mb={8} />
           <RoundedButton
-            onClick={
-              captureImage
-                ? reLaunchCamera
-                : isCaptureEnable
-                ? capture
-                : toggleLaunchCamera
-            }
+            onClick={captureButtonClickHandler}
             isLoading={isLoading}
           >
-            {captureImage
-              ? "診察券番号を再度読み取る"
-              : isCaptureEnable
-              ? "診察券番号を読み取る"
-              : "カメラを起動する"}
+            {captureButtonLabel}
           </RoundedButton>
           {captureImage && (
             <>
@@ -225,28 +131,18 @@ export const UpsertPatientCard = ({
                 </ListItem>
               </List>
               <Box mb={8} />
-              <NumberInput>
-                <NumberInputField
-                  placeholder="診察券番号"
-                  _placeholder={{ color: "inherit" }}
-                  value={textValue}
-                  onChange={handleTextChange}
-                  disabled={isLoading}
-                />
-              </NumberInput>
-              <Box mb={4} />
-              <RoundedButton
-                onClick={upsertPatientNumberWithManual}
+              <MedicalRecordIdTextFieldForm
+                upsertPatient={upsertPatient}
                 isLoading={isLoading}
-              >
-                入力した診察券番号を登録する
-              </RoundedButton>
+                error={upsertError}
+                resetState={resetState}
+              />
             </>
           )}
-          {isUpdateQRCode && (
+          {data && data.patientId && (
             <>
               <Box mb={8} />
-              <RoundedGrayButton onClick={resetState}>
+              <RoundedGrayButton onClick={resetState} isLoading={isLoading}>
                 キャンセル
               </RoundedGrayButton>
             </>

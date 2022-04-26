@@ -9,17 +9,24 @@
       "UnauthRoleName": "amplify-nomocaliffapp-dev-170050-unauthRole",
       "StackName": "amplify-nomocaliffapp-dev-170050",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:999216002524:stack/amplify-nomocaliffapp-dev-170050/84a95460-b4b6-11ec-83e1-0e7d7488e075",
-      "AmplifyAppId": "d3qzz59506aeoz"
+      "AmplifyAppId": "d3qzz59506aeoz",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nomocaliffapp-dev-170050-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "true": {},
-        "nomocaliffappeb62764d": {}
+        "nomocaliffappec814038ec814038": {}
       },
       "hosting": {
         "amplifyhosting": {
           "appId": "d3qzz59506aeoz",
           "type": "cicd"
+        }
+      },
+      "function": {
+        "nomocaliffappec814038ec814038PreSignup": {
+          "deploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
+          "s3Key": "amplify-builds/nomocaliffappec814038ec814038PreSignup-61463567504249646838-build.zip"
         }
       }
     }

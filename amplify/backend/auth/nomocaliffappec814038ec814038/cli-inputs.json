@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "nomocaliffappeb62764d_identitypool_eb62764d",
+    "identityPoolName": "nomocaliffappec814038ec814038_identitypool_bc278996",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "nomocaeb62764d",
-    "userPoolName": "nomocaliffappeb62764d_userpool_eb62764d",
+    "resourceNameTruncated": "nomocaec814038",
+    "userPoolName": "nomocaliffappec814038_userpool_ec814038",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -29,13 +29,20 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "nomocaeb62764d_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "nomocaec814038_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "eb62764d",
-    "resourceName": "nomocaliffappeb62764d",
+    "sharedId": "ec814038",
+    "resourceName": "nomocaliffappec814038ec814038",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
-    "triggers": {},
+    "useDefault": "manual",
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {
+      "PreSignup": [
+        "custom"
+      ]
+    },
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -53,6 +60,23 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "nomocaliffappec814038ec814038PreSignup",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "permissions": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreSignUp\",\n    \"lambdaFunctionName\": \"nomocaliffappec814038ec814038PreSignup\"\n  }\n]",
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    }
   }
 }

@@ -1,9 +1,19 @@
 {
   "auth": {
-    "nomocaliffappeb62764d": {
+    "nomocaliffappec814038ec814038": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "nomocaliffappec814038ec814038PreSignup",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
@@ -24,7 +34,7 @@
     }
   },
   "predictions": {
-    "identifyTextc26fb80f": {
+    "identifyTexta0cd755b": {
       "providerPlugin": "awscloudformation",
       "service": "RekognitionAndTextract",
       "dependsOn": [],
@@ -36,6 +46,39 @@
       "service": "amplifyhosting",
       "type": "cicd",
       "lastPushTimeStamp": "2022-04-05T11:19:00.918Z"
+    }
+  },
+  "function": {
+    "nomocaliffappec814038ec814038PreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "api": {
+    "nomocaliffapp": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "nomocaliffappec814038ec814038",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authnomocaliffappec814038ec814038"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
     }
   }
 }
