@@ -1,6 +1,6 @@
 import { AmazonAIPredictionsProvider } from "@aws-amplify/predictions";
 import { ColorModeScript } from "@chakra-ui/react";
-import Amplify, { AWSCloudWatchProvider, Logger } from "aws-amplify";
+import Amplify, { Logger } from "aws-amplify";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import UUID from "uuidjs";
@@ -17,8 +17,6 @@ const loggerPrefix = "nomoca-liff-app-logger";
 const appName = "nomoca-liff-app";
 const logStreamName = UUID.generate(); // ユニークなID
 
-console.log("env:", process.env.NODE_ENV);
-
 // sends Amplify logs to Cloud Watch
 Amplify.configure({
   Logging: {
@@ -33,8 +31,9 @@ Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 const logLevel = process.env.REACT_APP_LOG_LEVEL as string; //どのレベルのログまでロギングするか
 export const logger = new Logger("Logger", logLevel);
-Amplify.register(logger);
-logger.addPluggable(new AWSCloudWatchProvider());
+// Cloud Watchにlogをを送る場合 comment in
+// Amplify.register(logger);
+// logger.addPluggable(new AWSCloudWatchProvider());
 
 ReactDOM.render(
   <React.StrictMode>

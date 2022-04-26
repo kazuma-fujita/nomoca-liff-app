@@ -1,5 +1,4 @@
 import { GraphQLResult } from "@aws-amplify/api";
-import { useToast } from "@chakra-ui/react";
 import { API, graphqlOperation } from "aws-amplify";
 import { useCallback, useState } from "react";
 import { useSWRConfig } from "swr";
@@ -15,9 +14,9 @@ import {
   createPatient as createPatientMutation,
   updatePatient as updatePatientMutation,
 } from "../graphql/mutations";
+import { logger } from "../index";
 import { parseResponseError } from "../utilities/parse-response-error";
 import { useFetchUser, User } from "./use-fetch-user";
-import { logger } from "../index";
 
 export const useUpsertPatient = () => {
   const [isLoading, setIsLoading] = useState(false);

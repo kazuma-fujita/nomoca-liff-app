@@ -49,10 +49,7 @@ const fetcher = async (): Promise<User | null> => {
     }
     // LINEユーザ情報取得
     const profile = await liff.getProfile();
-    logger.info(
-      `${profile.displayName} succeeded in to sign in for LINE.`,
-      `LINE userId: ${profile.userId}`
-    );
+    logger.info(`${profile.displayName} succeeded in to sign in for LINE.`);
     // Cognito認証処理
     const cognitoUser = await cognitoAuth(profile.userId);
     logger.info(
