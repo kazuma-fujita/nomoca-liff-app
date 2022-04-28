@@ -57,14 +57,14 @@ const Wrapper: React.FC<Props> = (props) => {
       data={data}
       webcamRef={webcamRef}
       isCaptureEnable={isCaptureEnable}
-      isCaptureLoading={isCaptureLoading}
-      captureError={captureError}
-      captureImage={captureImage}
+      isCaptureLoading={props.isCaptureLoading ?? isCaptureLoading}
+      captureError={props.captureError ?? captureError}
+      captureImage={props.captureImage ?? captureImage}
       analyzedNumbers={analyzedNumbers}
       captureButtonClickHandler={captureButtonClickHandler}
       upsertPatient={upsertPatient}
-      isUpsertLoading={isUpsertLoading}
-      upsertError={upsertError}
+      isUpsertLoading={props.isUpsertLoading ?? isUpsertLoading}
+      upsertError={props.upsertError ?? upsertError}
       resetState={resetState}
     />
   );
@@ -87,15 +87,13 @@ export const Default: Story = {
 
 export const Loading: Story = {
   ...Default,
-  // args: { isLoading: true },
+  args: { isCaptureLoading: true, isUpsertLoading: true, captureImage: "" },
 };
 
-export const Empty: Story = {
-  ...Default,
-  // args: { isEmptyList: true },
-};
-
-export const FetchError: Story = {
-  ...Default,
-  // args: { error: Error("The API fetched data but it returned null.") },
-};
+// export const ErrorOccurred: Story = {
+//   ...Default,
+//   args: {
+//     captureError: Error("A error occurred during to capture image."),
+//     upsertError: Error("It was returned null after the API had fetched data."),
+//   },
+// };

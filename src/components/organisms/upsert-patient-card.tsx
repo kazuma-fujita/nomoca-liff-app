@@ -115,6 +115,7 @@ export const UpsertPatientCard = ({
         boxShadow={"2xl"}
         rounded={"md"}
         overflow={"hidden"}
+        textAlign="center"
       >
         <Stack
           textAlign={"center"}
