@@ -26,10 +26,23 @@ const UserContext = createContext({} as ProviderProps);
 export const useFetchUser = () => useContext(UserContext);
 
 export const UserContextProvider: React.FC = ({ ...rest }) => {
-  const response = useFetch<User | null>(swrKey, fetcher, {
+  const response = useFetch<User | null>(swrKey, selectFetcher, {
     revalidateOnFocus: false,
   });
   return <UserContext.Provider value={{ ...response, swrKey }} {...rest} />;
+};
+
+const selectFetcher = async (): Promise<User | null> => {
+  const storybookEnv = process.env.STORYBOOK_ENV as string;
+  if (storybookEnv && storybookEnv === "storybook") {
+    return {
+      patientId: null,
+      medicalRecordId: null,
+      name: null,
+      avatarImageUrl: null,
+    };
+  }
+  return await fetcher();
 };
 
 const fetcher = async (): Promise<User | null> => {

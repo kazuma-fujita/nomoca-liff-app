@@ -8,6 +8,7 @@ import { App } from "./App";
 import awsconfig from "./aws-exports";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
+import { createRoot } from "react-dom/client";
 
 // Buffer is not define error対策
 // @ts-ignore
@@ -35,13 +36,26 @@ export const logger = new Logger("Logger", logLevel);
 // Amplify.register(logger);
 // logger.addPluggable(new AWSCloudWatchProvider());
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ColorModeScript />
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+// React18 uses createRoot
+const container = document.getElementById("root");
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <ColorModeScript />
+      <App />
+    </React.StrictMode>
+  );
+}
+
+// React17
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <ColorModeScript />
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );
 
 serviceWorker.unregister();
 
