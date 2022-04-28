@@ -3804,6 +3804,14 @@
     "@chakra-ui/utils" "1.10.4"
     "@chakra-ui/visually-hidden" "1.1.6"
 
+"@chakra-ui/storybook-addon@^1.0.3":
+  "integrity" "sha512-FzXj+QVHE9qYNGJOMqBq3tktea613O2bdlt62Cuyr3X+jyQeDeLAaHLnLKu+7yxtp5dyRU+Iqr8PYrJTV9ZGlw=="
+  "resolved" "https://registry.npmjs.org/@chakra-ui/storybook-addon/-/storybook-addon-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "@chakra-ui/icons" "^1.1.7"
+    "webpack-merge" "^5.0.0"
+
 "@chakra-ui/styled-system@1.19.0":
   "integrity" "sha512-z+bMfWs6jQGkpgarge1kmk78DuDhJIXRUMyRqZ3+CiIkze88bIIsww6mV2i8tEfUfTAvALeMnlYZ1DYsHsTTJw=="
   "resolved" "https://registry.npmjs.org/@chakra-ui/styled-system/-/styled-system-1.19.0.tgz"
@@ -18461,6 +18469,14 @@
     "tapable" "^2.0.0"
     "webpack-sources" "^2.2.0"
 
+"webpack-merge@^5.0.0":
+  "integrity" "sha512-/SaI7xY0831XwP6kzuwhKWVKDP9t1QY1h65lAFLbZqMPIuYcD9QAW4u9STIbU9kaJbPBB/geU/gLr1wDjOhQ+Q=="
+  "resolved" "https://registry.npmjs.org/webpack-merge/-/webpack-merge-5.8.0.tgz"
+  "version" "5.8.0"
+  dependencies:
+    "clone-deep" "^4.0.1"
+    "wildcard" "^2.0.0"
+
 "webpack-sources@^1.4.0", "webpack-sources@^1.4.1", "webpack-sources@^1.4.3":
   "integrity" "sha512-lgTS3Xhv1lCOKo7SA5TjKXMjpSM4sBjNV5+q2bqesbSPs5FjGmU6jjtBSkX9b4qW87vDIsCIlUPOEhbZrMdjeQ=="
   "resolved" "https://registry.npmjs.org/webpack-sources/-/webpack-sources-1.4.3.tgz"
@@ -18664,6 +18680,11 @@
   "version" "3.1.0"
   dependencies:
     "string-width" "^4.0.0"
+
+"wildcard@^2.0.0":
+  "integrity" "sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw=="
+  "resolved" "https://registry.npmjs.org/wildcard/-/wildcard-2.0.0.tgz"
+  "version" "2.0.0"
 
 "word-wrap@^1.2.3", "word-wrap@~1.2.3":
   "integrity" "sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ=="
