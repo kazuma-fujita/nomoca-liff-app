@@ -1,4 +1,4 @@
-import { CheckIcon, WarningTwoIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import {
   Box,
   Center,
@@ -9,10 +9,9 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useCallback } from "react";
-import { useCaptureImage } from "../../hooks/use-capture-image";
-import { useFetchUser } from "../../hooks/use-fetch-user";
-import { useUpsertPatient } from "../../hooks/use-upsert-patient";
+import { RefObject } from "react";
+import Webcam from "react-webcam";
+import { User } from "../../hooks/use-fetch-user";
 import { Camera } from "../atoms/camera";
 import { Chip } from "../atoms/chip";
 import { ErrorAlert } from "../atoms/error-alert";
@@ -21,41 +20,91 @@ import { RoundedGrayButton } from "../atoms/rounded-gray-button";
 import { MedicalRecordIdRadioButtonForm } from "../molecules/medical-record-id-radio-button-form";
 import { MedicalRecordIdTextFieldForm } from "../molecules/medical-record-id-text-field-form";
 
-type Props = {
-  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+const getCaptureDescription = (
+  error: Error | null,
+  isLoading: boolean,
+  captureImage: string | null,
+  analyzedNumbers: string[],
+  isCaptureEnable: boolean
+) => {
+  let description = "カメラを起動して診察券番号を読み取ってください。";
+  if (error) {
+    description = "エラーが発生しました。";
+  } else if (isLoading) {
+    description = "読込中です。";
+  } else if (captureImage && analyzedNumbers.length) {
+    description = "診察券番号を選択してください。";
+  } else if (captureImage && !analyzedNumbers.length) {
+    description = "診察券を読み取れませんでした。";
+  } else if (isCaptureEnable) {
+    description =
+      "診察券番号が書いてある面をカメラに向けて読み取るボタンをタップしてください。";
+  }
+
+  let icon = CheckIcon;
+  if (error || (!isLoading && captureImage && !analyzedNumbers.length)) {
+    icon = CloseIcon;
+  }
+  return { captureResultIcon: icon, captureResultDescription: description };
 };
 
-export const UpsertPatientCard = ({ setIsUpdate }: Props) => {
-  const { data } = useFetchUser();
+const getCaptureButtonLabel = (
+  captureImage: string | null,
+  isCaptureEnable: boolean
+) => {
+  let label = "カメラを起動する";
+  if (captureImage) {
+    label = "診察券番号を再度読み取る";
+  } else if (isCaptureEnable) {
+    label = "診察券番号を読み取る";
+  }
+  return { captureButtonLabel: label };
+};
 
-  const {
-    webcamRef,
-    isCaptureEnable,
-    isLoading: isCaptureLoading,
-    error: captureError,
+// patient-card.storiesで利用する為 export
+export type Props = {
+  data: User | null;
+  webcamRef: RefObject<Webcam>;
+  isCaptureEnable: boolean;
+  isCaptureLoading: boolean;
+  captureError: Error | null;
+  captureImage: string | null;
+  analyzedNumbers: string[];
+  captureButtonClickHandler: () => void;
+  upsertPatient: (param: User) => Promise<any>;
+  isUpsertLoading: boolean;
+  upsertError: Error | null;
+  resetState: () => void;
+};
+
+export const UpsertPatientCard = ({
+  data,
+  webcamRef,
+  isCaptureEnable,
+  isCaptureLoading,
+  captureError,
+  captureImage,
+  analyzedNumbers,
+  captureButtonClickHandler,
+  upsertPatient,
+  isUpsertLoading,
+  upsertError,
+  resetState,
+}: Props) => {
+  const isLoading = isCaptureLoading || isUpsertLoading;
+
+  const { captureResultIcon, captureResultDescription } = getCaptureDescription(
+    captureError,
+    isCaptureLoading,
     captureImage,
     analyzedNumbers,
-    captureResultIcon,
-    captureResultDescription,
-    captureButtonClickHandler,
-    captureButtonLabel,
-    resetState: resetCaptureState,
-  } = useCaptureImage();
+    isCaptureEnable
+  );
 
-  const {
-    upsertPatient,
-    isLoading: isUpsertLoading,
-    error: upsertError,
-    resetState: resetUpsertState,
-  } = useUpsertPatient();
-
-  const resetState = useCallback(() => {
-    resetCaptureState();
-    resetUpsertState();
-    setIsUpdate(false);
-  }, [resetCaptureState, resetUpsertState, setIsUpdate]);
-
-  const isLoading = isCaptureLoading || isUpsertLoading;
+  const { captureButtonLabel } = getCaptureButtonLabel(
+    captureImage,
+    isCaptureEnable
+  );
 
   return (
     <Center>
