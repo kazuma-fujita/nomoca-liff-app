@@ -9,7 +9,13 @@ const description = `
 
 ## Use Case
 
-description
+**患者初回操作**
+
+- CLINIC BOTからLIFFアプリを起動する
+- LIFFアプリに対してLINE認証を行う
+- カメラを起動し診察券を撮影する
+- 診察券番号を登録する
+- 診察券番号がQRコードとして表示される
 
 	dummy
 	dummy
