@@ -54,7 +54,7 @@ jobs:
               }
           };
           export default awsmobile;
-          EOF
+          EOS
           cat src/aws-exports.js
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
