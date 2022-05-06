@@ -14,6 +14,48 @@ jobs:
       - uses: actions/checkout@v1
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
+      - name: Exports aws-exports.js
+        run: |
+        cat <<EOS > src/aws-exports.js
+        const awsmobile = {
+            "aws_project_region": "ap-northeast-1",
+            "aws_cognito_identity_pool_id": "ap-northeast-1:mock-aws-cognito-identity-pool_id",
+            "aws_cognito_region": "ap-northeast-1",
+            "aws_user_pools_id": "ap-northeast-1_u1VvIG30h",
+            "aws_user_pools_web_client_id": "MockAWSUserPoolsWebClientId",
+            "oauth": {},
+            "aws_cognito_username_attributes": [],
+            "aws_cognito_social_providers": [],
+            "aws_cognito_signup_attributes": [],
+            "aws_cognito_mfa_configuration": "OFF",
+            "aws_cognito_mfa_types": [
+                "SMS"
+            ],
+            "aws_cognito_password_protection_settings": {
+                "passwordPolicyMinLength": 8,
+                "passwordPolicyCharacters": []
+            },
+            "aws_cognito_verification_mechanisms": [
+                "EMAIL"
+            ],
+            "aws_appsync_graphqlEndpoint": "https://mockAWSAppsyncGraphqlEndpoint.appsync-api.ap-northeast-1.amazonaws.com/graphql",
+            "aws_appsync_region": "ap-northeast-1",
+            "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "predictions": {
+                "identify": {
+                    "identifyText": {
+                        "proxy": false,
+                        "region": "us-east-1",
+                        "defaults": {
+                            "format": "ALL"
+                        }
+                    }
+                }
+            }
+        };
+        export default awsmobile;
+        EOS
+        cat src/aws-exports.js
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
