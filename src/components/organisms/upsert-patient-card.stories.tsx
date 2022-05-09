@@ -20,7 +20,23 @@ const description = `
 	dummy
 	dummy
 
-## Specs
+# Specs
+
+
+# Validations
+
+## 診察券番号
+
+| 項目 | 値 |
+| ---: | :--- |
+| 必須 | ◯ |
+| 種類 | TextBox |
+| 型 | Numeric |
+| 最大桁 | 256 |
+| 備考 | - |
+
+- Validation事後処理
+  -  半角全角tabスペーストリム処理
 
 ## Back Office Ops
 
