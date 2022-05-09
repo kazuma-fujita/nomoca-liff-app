@@ -6,7 +6,7 @@ type Props = UseFormReturn<User> & {
   isLoading: boolean;
 };
 
-const maxLength = 256;
+const maxLength = 128;
 
 export const MedicalRecordIdTextField = ({
   register,
