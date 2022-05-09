@@ -8,17 +8,17 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import QRCode from "react-qr-code";
-import { Chip } from "../atoms/chip";
 import { FaCamera } from "react-icons/fa";
-import { useFetchUser } from "../../hooks/use-fetch-user";
+import QRCode from "react-qr-code";
+import { User } from "../../hooks/use-fetch-user";
+import { Chip } from "../atoms/chip";
 
 type Props = {
+  data: User | null;
   setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PatientCard = ({ setIsUpdate }: Props) => {
-  const { data } = useFetchUser();
+export const PatientCard = ({ data, setIsUpdate }: Props) => {
   return (
     <Center py={12}>
       <Box
@@ -31,6 +31,7 @@ export const PatientCard = ({ setIsUpdate }: Props) => {
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
+        textAlign={"center"}
       >
         <Box
           rounded={"lg"}
