@@ -76,8 +76,18 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
               <>
                 <Avatar src={data.avatarImageUrl ?? undefined} />
                 <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-                  <Text fontWeight={600}>{data.name ?? "no name"} 様</Text>
-                  <Text color={"gray.500"}>
+                  <Text
+                    fontWeight={600}
+                    overflowWrap={"break-word"}
+                    wordBreak={"break-word"}
+                  >
+                    {data.name ?? "no name"} 様
+                  </Text>
+                  <Text
+                    color={"gray.500"}
+                    overflowWrap={"break-word"}
+                    wordBreak={"break-word"}
+                  >
                     No.&nbsp;{data.medicalRecordId ?? "----"}
                   </Text>
                 </Stack>

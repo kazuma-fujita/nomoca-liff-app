@@ -38,8 +38,6 @@ const description = `
 - Validation事後処理
   -  半角全角tabスペーストリム処理
 
-## Back Office Ops
-
 `;
 
 const Wrapper: React.FC<Props> = (props) => {
