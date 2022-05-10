@@ -8,17 +8,17 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import QRCode from "react-qr-code";
-import { Chip } from "../atoms/chip";
 import { FaCamera } from "react-icons/fa";
-import { useFetchUser } from "../../hooks/use-fetch-user";
+import QRCode from "react-qr-code";
+import { User } from "../../hooks/use-fetch-user";
+import { Chip } from "../atoms/chip";
 
 type Props = {
+  data: User | null;
   setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PatientCard = ({ setIsUpdate }: Props) => {
-  const { data } = useFetchUser();
+export const PatientCard = ({ data, setIsUpdate }: Props) => {
   return (
     <Center py={12}>
       <Box
@@ -31,6 +31,7 @@ export const PatientCard = ({ setIsUpdate }: Props) => {
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
+        textAlign={"center"}
       >
         <Box
           rounded={"lg"}
@@ -75,8 +76,18 @@ export const PatientCard = ({ setIsUpdate }: Props) => {
               <>
                 <Avatar src={data.avatarImageUrl ?? undefined} />
                 <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-                  <Text fontWeight={600}>{data.name ?? "no name"} 様</Text>
-                  <Text color={"gray.500"}>
+                  <Text
+                    fontWeight={600}
+                    overflowWrap={"break-word"}
+                    wordBreak={"break-word"}
+                  >
+                    {data.name ?? "no name"} 様
+                  </Text>
+                  <Text
+                    color={"gray.500"}
+                    overflowWrap={"break-word"}
+                    wordBreak={"break-word"}
+                  >
                     No.&nbsp;{data.medicalRecordId ?? "----"}
                   </Text>
                 </Stack>

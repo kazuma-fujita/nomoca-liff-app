@@ -1,15 +1,9 @@
-import {
-  Box,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, useToast } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useFetchUser, User } from "../../hooks/use-fetch-user";
 import { ErrorAlert } from "../atoms/error-alert";
+import { MedicalRecordIdTextField } from "../atoms/medical-record-id-text-field";
 import { RoundedButton } from "../atoms/rounded-button";
 
 type Props = {
@@ -27,11 +21,12 @@ export const MedicalRecordIdTextFieldForm = ({
 }: Props) => {
   const { data } = useFetchUser();
 
+  const useFormReturn = useForm<User>();
+
   const {
     handleSubmit,
-    register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useFormReturn;
 
   const toast = useToast();
 
@@ -62,26 +57,11 @@ export const MedicalRecordIdTextFieldForm = ({
   return (
     <>
       <form onSubmit={submitHandler} noValidate>
-        <FormControl isInvalid={errors.medicalRecordId}>
+        <FormControl isRequired isInvalid={Boolean(errors.medicalRecordId)}>
           <FormLabel htmlFor="medicalRecordId" color="gray.500" fontSize="sm">
             診察券番号
           </FormLabel>
-          <Input
-            type="number"
-            autoComplete="off"
-            placeholder="半角数字で入力してください"
-            disabled={isLoading}
-            {...register("medicalRecordId", {
-              required: "診察券番号を入力してください",
-              pattern: {
-                value: /^[0-9]+$/i,
-                message: "診察券番号は半角数字で入力してください",
-              },
-            })}
-          />
-          <FormErrorMessage>
-            {errors.medicalRecordId && errors.medicalRecordId.message}
-          </FormErrorMessage>
+          <MedicalRecordIdTextField isLoading={isLoading} {...useFormReturn} />
           {error && <ErrorAlert mt={4}>{error}</ErrorAlert>}
           <Box mb={4} />
           <RoundedButton type="submit" isLoading={isSubmitting || isLoading}>

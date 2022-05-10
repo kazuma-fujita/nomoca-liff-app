@@ -1,8 +1,8 @@
 import { Alert, AlertIcon, Box, Grid, Spinner, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useFetchUser } from "../../hooks/use-fetch-user";
-import { PatientCard } from "../organisms/patient-card";
-import { UpsertPatientCard } from "../organisms/upsert-patient-card";
+import { PatientCardContainer } from "../organisms/patient-card-container";
+import { UpsertPatientCardContainer } from "../organisms/upsert-patient-card-container";
 
 export const AppTemplate = () => {
   const [isUpdate, setIsUpdate] = useState(false);
@@ -21,9 +21,9 @@ export const AppTemplate = () => {
           {!isLoading && !error && (
             <>
               {!data || !data.patientId || isUpdate ? (
-                <UpsertPatientCard setIsUpdate={setIsUpdate} />
+                <UpsertPatientCardContainer setIsUpdate={setIsUpdate} />
               ) : (
-                <PatientCard setIsUpdate={setIsUpdate} />
+                <PatientCardContainer setIsUpdate={setIsUpdate} />
               )}
             </>
           )}
