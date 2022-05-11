@@ -11,6 +11,7 @@ import {
 import { FaCamera } from "react-icons/fa";
 import QRCode from "react-qr-code";
 import { User } from "../../hooks/use-fetch-user";
+import { productName } from "../../utilities/constants";
 import { Chip } from "../atoms/chip";
 
 type Props = {
@@ -69,7 +70,7 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
         </Box>
         <Box mb={16} />
         <Stack align={"center"}>
-          <Chip>NOMOCA診察券</Chip>
+          <Chip>{productName}</Chip>
           <Box paddingBottom={2} />
           <Stack mt={6} direction={"row"} spacing={4} align={"right"}>
             {data && (
