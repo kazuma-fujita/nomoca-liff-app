@@ -1,65 +1,65 @@
 {
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-nomocaliffapp-prod-112004-authRole",
-            "UnauthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-prod-112004-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-prod-112004-authRole",
-            "Region": "ap-northeast-1",
-            "DeploymentBucketName": "amplify-nomocaliffapp-prod-112004-deployment",
-            "UnauthRoleName": "amplify-nomocaliffapp-prod-112004-unauthRole",
-            "StackName": "amplify-nomocaliffapp-prod-112004",
-            "StackId": "arn:aws:cloudformation:ap-northeast-1:999216002524:stack/amplify-nomocaliffapp-prod-112004/580d9620-b4d2-11ec-b465-0a395be04137",
-            "AmplifyAppId": "d3qzz59506aeoz",
-            "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nomocaliffapp-prod-112004-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
-        },
-        "categories": {
-            "auth": {
-                "nomocaliffappec814038ec814038": {}
-            },
-            "function": {
-                "nomocaliffappec814038ec814038PreSignup": {
-                    "deploymentBucketName": "amplify-nomocaliffapp-prod-112004-deployment",
-                    "s3Key": "amplify-builds/nomocaliffappec814038ec814038PreSignup-61463567504249646838-build.zip"
-                }
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d3qzz59506aeoz",
-                    "type": "cicd"
-                }
-            }
-        }
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nomocaliffapp-prod-112004-authRole",
+      "UnauthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-prod-112004-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-prod-112004-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-nomocaliffapp-prod-112004-deployment",
+      "UnauthRoleName": "amplify-nomocaliffapp-prod-112004-unauthRole",
+      "StackName": "amplify-nomocaliffapp-prod-112004",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:999216002524:stack/amplify-nomocaliffapp-prod-112004/580d9620-b4d2-11ec-b465-0a395be04137",
+      "AmplifyAppId": "d3qzz59506aeoz",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nomocaliffapp-prod-112004-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-nomocaliffapp-dev-170050-authRole",
-            "UnauthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-dev-170050-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-dev-170050-authRole",
-            "Region": "ap-northeast-1",
-            "DeploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
-            "UnauthRoleName": "amplify-nomocaliffapp-dev-170050-unauthRole",
-            "StackName": "amplify-nomocaliffapp-dev-170050",
-            "StackId": "arn:aws:cloudformation:ap-northeast-1:999216002524:stack/amplify-nomocaliffapp-dev-170050/84a95460-b4b6-11ec-83e1-0e7d7488e075",
-            "AmplifyAppId": "d3qzz59506aeoz",
-            "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nomocaliffapp-dev-170050-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
-        },
-        "categories": {
-            "auth": {
-                "true": {},
-                "nomocaliffappec814038ec814038": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d3qzz59506aeoz",
-                    "type": "cicd"
-                }
-            },
-            "function": {
-                "nomocaliffappec814038ec814038PreSignup": {
-                    "deploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
-                    "s3Key": "amplify-builds/nomocaliffappec814038ec814038PreSignup-61463567504249646838-build.zip"
-                }
-            }
+    "categories": {
+      "auth": {
+        "nomocaliffappec814038ec814038": {}
+      },
+      "function": {
+        "nomocaliffappec814038ec814038PreSignup": {
+          "deploymentBucketName": "amplify-nomocaliffapp-prod-112004-deployment",
+          "s3Key": "amplify-builds/nomocaliffappec814038ec814038PreSignup-61463567504249646838-build.zip"
         }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3qzz59506aeoz",
+          "type": "cicd"
+        }
+      }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nomocaliffapp-dev-170050-authRole",
+      "UnauthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-dev-170050-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::999216002524:role/amplify-nomocaliffapp-dev-170050-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
+      "UnauthRoleName": "amplify-nomocaliffapp-dev-170050-unauthRole",
+      "StackName": "amplify-nomocaliffapp-dev-170050",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:999216002524:stack/amplify-nomocaliffapp-dev-170050/84a95460-b4b6-11ec-83e1-0e7d7488e075",
+      "AmplifyAppId": "d3qzz59506aeoz",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nomocaliffapp-dev-170050-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "true": {},
+        "nomocaliffappec814038ec814038": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3qzz59506aeoz",
+          "type": "cicd"
+        }
+      },
+      "function": {
+        "nomocaliffappec814038ec814038PreSignup": {
+          "deploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
+          "s3Key": "amplify-builds/nomocaliffappec814038ec814038PreSignup-61463567504249646838-build.zip"
+        }
+      }
+    }
+  }
 }
