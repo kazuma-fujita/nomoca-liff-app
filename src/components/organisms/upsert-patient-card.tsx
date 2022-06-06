@@ -28,6 +28,7 @@ const getCaptureDescription = (
   isCaptureEnable: boolean
 ) => {
   let description = "カメラを起動して診察券番号を読み取ってください。";
+  let isReadFailure = false;
   if (error) {
     description = "エラーが発生しました。";
   } else if (isLoading) {
@@ -36,6 +37,7 @@ const getCaptureDescription = (
     description = "診察券番号を選択してください。";
   } else if (captureImage && !analyzedNumbers.length) {
     description = "診察券を読み取れませんでした。";
+    isReadFailure = true;
   } else if (isCaptureEnable) {
     description =
       "診察券番号が書いてある面をカメラに向けて読み取るボタンをタップしてください。";
@@ -45,7 +47,11 @@ const getCaptureDescription = (
   if (error || (!isLoading && captureImage && !analyzedNumbers.length)) {
     icon = CloseIcon;
   }
-  return { captureResultIcon: icon, captureResultDescription: description };
+  return {
+    captureResultIcon: icon,
+    captureResultDescription: description,
+    isReadFailure: isReadFailure,
+  };
 };
 
 const getCaptureButtonLabel = (
@@ -93,13 +99,14 @@ export const UpsertPatientCard = ({
 }: Props) => {
   const isLoading = isCaptureLoading || isUpsertLoading;
 
-  const { captureResultIcon, captureResultDescription } = getCaptureDescription(
-    captureError,
-    isCaptureLoading,
-    captureImage,
-    analyzedNumbers,
-    isCaptureEnable
-  );
+  const { captureResultIcon, captureResultDescription, isReadFailure } =
+    getCaptureDescription(
+      captureError,
+      isCaptureLoading,
+      captureImage,
+      analyzedNumbers,
+      isCaptureEnable
+    );
 
   const { captureButtonLabel } = getCaptureButtonLabel(
     captureImage,
@@ -133,7 +140,10 @@ export const UpsertPatientCard = ({
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={4} py={8}>
           <List spacing={3} fontSize={"sm"}>
             <ListItem>
-              <ListIcon as={captureResultIcon} color="green.400" />
+              <ListIcon
+                as={captureResultIcon}
+                color={isReadFailure ? "red.400" : "green.400"}
+              />
               {captureResultDescription}
             </ListItem>
           </List>
