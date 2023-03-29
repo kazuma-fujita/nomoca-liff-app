@@ -19,6 +19,8 @@ type Props = {
   setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+const QR_SIZE = 128;
+
 export const PatientCard = ({ data, setIsUpdate }: Props) => {
   return (
     <Center py={12}>
@@ -33,12 +35,14 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
         pos={"relative"}
         zIndex={1}
         textAlign={"center"}
+        display={"flex"} // Add this property
+        alignItems={"center"} // Add this property
+        flexDirection={"column"} // Add this property
       >
         <Box
           rounded={"lg"}
           mt={-12}
           pos={"relative"}
-          height={"230px"}
           _after={{
             transition: "all .3s ease",
             content: '""',
@@ -58,12 +62,12 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
           }}
         >
           {data && data.medicalRecordId ? (
-            <QRCode value={data.medicalRecordId} />
+            <QRCode value={data.medicalRecordId} size={QR_SIZE} />
           ) : (
             <Image
               rounded={"lg"}
-              height={230}
-              width={282}
+              height={QR_SIZE}
+              width={QR_SIZE}
               objectFit={"cover"}
             />
           )}
@@ -96,7 +100,7 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
             )}
           </Stack>
         </Stack>
-        <Box pt={4} textAlign="end">
+        <Box pt={4} width={"100%"} textAlign="end">
           <IconButton
             aria-label="launch camera"
             icon={<FaCamera />}
