@@ -39,7 +39,7 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
         alignItems={"center"} // Add this property
         flexDirection={"column"} // Add this property
       >
-        <Box
+        {/* <Box
           rounded={"lg"}
           mt={-12}
           pos={"relative"}
@@ -60,18 +60,18 @@ export const PatientCard = ({ data, setIsUpdate }: Props) => {
               filter: "blur(20px)",
             },
           }}
-        >
-          {data && data.medicalRecordId ? (
-            <QRCode value={data.medicalRecordId} size={QR_SIZE} />
-          ) : (
-            <Image
-              rounded={"lg"}
-              height={QR_SIZE}
-              width={QR_SIZE}
-              objectFit={"cover"}
-            />
-          )}
-        </Box>
+        > */}
+        {data && data.medicalRecordId ? (
+          <QRCode value={data.medicalRecordId} size={QR_SIZE} />
+        ) : (
+          <Image
+            rounded={"lg"}
+            height={QR_SIZE}
+            width={QR_SIZE}
+            objectFit={"cover"}
+          />
+        )}
+        {/* </Box> */}
         <Box mb={16} />
         <Stack align={"center"}>
           <Chip>{productName}</Chip>
