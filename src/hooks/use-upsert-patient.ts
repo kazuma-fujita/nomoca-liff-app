@@ -34,6 +34,8 @@ export const useUpsertPatient = () => {
         if (!medicalRecordId) {
           throw Error("A medical record ID is not found.");
         }
+        logger.info("param", param);
+        logger.info("data", data);
         const inputParam = {
           medicalRecordId: medicalRecordId,
           owner: param.owner,
