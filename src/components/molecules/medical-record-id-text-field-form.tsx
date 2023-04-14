@@ -39,6 +39,7 @@ export const MedicalRecordIdTextFieldForm = ({
           await upsertPatient({
             patientId: data && data.patientId,
             medicalRecordId: param.medicalRecordId,
+            owner: data && data.owner,
           });
           // 画面状態をリセットし診察券画面表示
           resetState();

@@ -20,6 +20,7 @@ export type User = {
   medicalRecordId: string | null;
   name?: string | null;
   avatarImageUrl?: string | null;
+  owner?: string | null;
 };
 
 type ProviderProps = FetchResponse<User | null> & {
@@ -45,6 +46,7 @@ const selectFetcher = async (): Promise<User | null> => {
       medicalRecordId: null,
       name: null,
       avatarImageUrl: null,
+      owner: null,
     };
   }
   return await fetcher();
@@ -86,6 +88,7 @@ const fetcher = async (): Promise<User | null> => {
       name: profile.displayName,
       avatarImageUrl: profile.pictureUrl ?? null,
       medicalRecordId: patient ? patient.medicalRecordId : null,
+      owner: cognitoUserId,
     };
   } catch (error) {
     logger.error(

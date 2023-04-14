@@ -36,6 +36,7 @@ export const useUpsertPatient = () => {
         }
         const inputParam = {
           medicalRecordId: medicalRecordId,
+          owner: param.owner,
         };
         if (!param.patientId) {
           const input: CreatePatientInput = { ...inputParam };

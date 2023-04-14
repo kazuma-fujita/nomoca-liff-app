@@ -25,16 +25,17 @@ export const MedicalRecordIdRadioButtonForm = ({
 
   const toast = useToast();
 
-  const upsertMedicalRecordId = useCallback(() => {
+  const upsertMedicalRecordId = useCallback(async () => {
     if (!selectedRadioValue) {
       setValidationError("診察券番号を選択してください");
       return;
     }
     // 認証済の場合、LINEのnameとavatarImageをfetchする為、dataは必ず存在する。
     // data.patientIdはpatientがfetch出来なかった場合nullが入る。
-    upsertPatient({
+    await upsertPatient({
       patientId: data && data.patientId,
       medicalRecordId: selectedRadioValue,
+      owner: data && data.owner,
     });
     // 画面状態をリセットし診察券画面表示
     resetState();
