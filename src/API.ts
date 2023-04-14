@@ -5,7 +5,7 @@
 export type CreatePatientInput = {
   id?: string | null,
   medicalRecordId: string,
-  owner: string,
+  owner?: string | null,
   createdAt?: string | null,
   updatedAt?: string | null,
 };
@@ -64,9 +64,9 @@ export type Patient = {
   __typename: "Patient",
   id: string,
   medicalRecordId: string,
-  owner: string,
-  createdAt: string,
-  updatedAt: string,
+  owner?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type UpdatePatientInput = {
@@ -179,9 +179,9 @@ export type CreatePatientMutation = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -195,9 +195,9 @@ export type UpdatePatientMutation = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -211,9 +211,9 @@ export type DeletePatientMutation = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -226,9 +226,9 @@ export type GetPatientQuery = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -245,9 +245,9 @@ export type ListPatientsQuery = {
       __typename: "Patient",
       id: string,
       medicalRecordId: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
+      owner?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -269,9 +269,9 @@ export type QueryPatientsByOwnerSortedCreatedAtQuery = {
       __typename: "Patient",
       id: string,
       medicalRecordId: string,
-      owner: string,
-      createdAt: string,
-      updatedAt: string,
+      owner?: string | null,
+      createdAt?: string | null,
+      updatedAt?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -287,9 +287,9 @@ export type OnCreatePatientSubscription = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -303,9 +303,9 @@ export type OnUpdatePatientSubscription = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };
 
@@ -319,8 +319,8 @@ export type OnDeletePatientSubscription = {
     __typename: "Patient",
     id: string,
     medicalRecordId: string,
-    owner: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
+    createdAt?: string | null,
+    updatedAt?: string | null,
   } | null,
 };

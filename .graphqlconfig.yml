@@ -2,13 +2,13 @@ projects:
   nomocaliffapp:
     schemaPath: amplify/backend/api/nomocaliffapp/build/schema.graphql
     includes:
-      - src/graphql/**/*.ts
+      - src/graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
       amplify:
-        codeGenTarget: typescript
-        generatedFileName: src/API.ts
+        codeGenTarget: javascript
+        generatedFileName: ''
         docsFilePath: src/graphql
         maxDepth: 5
 extensions:
