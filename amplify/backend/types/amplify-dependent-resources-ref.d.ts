@@ -20,6 +20,7 @@ export type AmplifyDependentResourcesAttributes = {
     "nomocaliffappec814038ec814038PreSignup": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
     }

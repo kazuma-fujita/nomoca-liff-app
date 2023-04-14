@@ -3,35 +3,44 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreatePatient = /* GraphQL */ `
-  subscription OnCreatePatient($owner: String) {
-    onCreatePatient(owner: $owner) {
+  subscription OnCreatePatient(
+    $filter: ModelSubscriptionPatientFilterInput
+    $owner: String
+  ) {
+    onCreatePatient(filter: $filter, owner: $owner) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdatePatient = /* GraphQL */ `
-  subscription OnUpdatePatient($owner: String) {
-    onUpdatePatient(owner: $owner) {
+  subscription OnUpdatePatient(
+    $filter: ModelSubscriptionPatientFilterInput
+    $owner: String
+  ) {
+    onUpdatePatient(filter: $filter, owner: $owner) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeletePatient = /* GraphQL */ `
-  subscription OnDeletePatient($owner: String) {
-    onDeletePatient(owner: $owner) {
+  subscription OnDeletePatient(
+    $filter: ModelSubscriptionPatientFilterInput
+    $owner: String
+  ) {
+    onDeletePatient(filter: $filter, owner: $owner) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;

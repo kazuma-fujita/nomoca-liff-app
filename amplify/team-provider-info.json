@@ -59,6 +59,12 @@
           "deploymentBucketName": "amplify-nomocaliffapp-dev-170050-deployment",
           "s3Key": "amplify-builds/nomocaliffappec814038ec814038PreSignup-61463567504249646838-build.zip"
         }
+      },
+      "api": {
+        "nomocaliffapp": {}
+      },
+      "predictions": {
+        "identifyTexta0cd755b": {}
       }
     }
   }

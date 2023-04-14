@@ -9,9 +9,9 @@ export const createPatient = /* GraphQL */ `
     createPatient(input: $input, condition: $condition) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -23,9 +23,9 @@ export const updatePatient = /* GraphQL */ `
     updatePatient(input: $input, condition: $condition) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -37,9 +37,9 @@ export const deletePatient = /* GraphQL */ `
     deletePatient(input: $input, condition: $condition) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
