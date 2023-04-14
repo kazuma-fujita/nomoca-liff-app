@@ -5,7 +5,7 @@
 type Patient @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   medicalRecordId: String!
-  owner: String!
+  owner: String
     @index(
       name: "byOwner"
       sortKeyFields: ["createdAt"]
