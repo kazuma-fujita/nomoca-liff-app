@@ -156,6 +156,7 @@ const fetchPatient = async (): Promise<Patient | null> => {
   }
 
   const patients = result.data.listPatients.items as Patient[];
+  console.log("patients", patients);
   // LINEユーザー:cognitoユーザー:patientデータは 1:1:1 なので複数patientデータはエラー処理
   //   if (patients.length > 1) {
   //     throw Error("It was found two patients or over.");
