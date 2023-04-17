@@ -34,9 +34,9 @@ export const useUpsertPatient = () => {
         if (!medicalRecordId) {
           throw Error("A medical record ID is not found.");
         }
-        // 診察券番号はtrim処理をしてから登録
         const inputParam = {
           medicalRecordId: medicalRecordId,
+          owner: param.owner ?? data.owner,
         };
         if (!param.patientId) {
           const input: CreatePatientInput = { ...inputParam };

@@ -1,51 +1,62 @@
 {
-  "auth": {
-    "nomocaliffappec814038ec814038": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
+  "api": {
+    "nomocaliffapp": {
       "dependsOn": [
         {
-          "category": "function",
-          "resourceName": "nomocaliffappec814038ec814038PreSignup",
-          "triggerProvider": "Cognito",
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "nomocaliffappec814038ec814038"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authnomocaliffappec814038ec814038"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "nomocaliffappec814038ec814038": {
+      "customAuth": false,
+      "dependsOn": [
+        {
           "attributes": [
             "Arn",
             "Name"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "nomocaliffappec814038ec814038PreSignup",
+          "triggerProvider": "Cognito"
         }
       ],
-      "customAuth": false,
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "signupAttributes": [],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
           "SMS"
         ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [],
         "verificationMechanisms": [
           "EMAIL"
         ]
-      }
-    }
-  },
-  "predictions": {
-    "identifyTexta0cd755b": {
+      },
       "providerPlugin": "awscloudformation",
-      "service": "RekognitionAndTextract",
-      "dependsOn": [],
-      "identifyType": "identifyText"
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "type": "cicd",
-      "lastPushTimeStamp": "2022-04-05T11:19:00.918Z"
+      "service": "Cognito"
     }
   },
   "function": {
@@ -55,30 +66,53 @@
       "service": "Lambda"
     }
   },
-  "api": {
-    "nomocaliffapp": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
+  "hosting": {
+    "amplifyhosting": {
+      "lastPushTimeStamp": "2022-04-05T11:19:00.918Z",
+      "service": "amplifyhosting",
+      "type": "cicd"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_nomocaliffappec814038ec814038PreSignup_deploymentBucketName": {
+      "usedBy": [
         {
-          "category": "auth",
-          "resourceName": "nomocaliffappec814038ec814038",
-          "attributes": [
-            "UserPoolId"
-          ]
+          "category": "function",
+          "resourceName": "nomocaliffappec814038ec814038PreSignup"
         }
-      ],
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authnomocaliffappec814038ec814038"
-            }
-          },
-          "additionalAuthenticationProviders": []
+      ]
+    },
+    "AMPLIFY_function_nomocaliffappec814038ec814038PreSignup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "nomocaliffappec814038ec814038PreSignup"
         }
-      }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    }
+  },
+  "predictions": {
+    "identifyTexta0cd755b": {
+      "dependsOn": [],
+      "identifyType": "identifyText",
+      "providerPlugin": "awscloudformation",
+      "service": "RekognitionAndTextract"
     }
   }
 }

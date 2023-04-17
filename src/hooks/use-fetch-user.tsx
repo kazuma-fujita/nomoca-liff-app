@@ -3,8 +3,13 @@ import { CognitoUser } from "@aws-amplify/auth";
 import liff from "@line/liff";
 import { API, Auth, graphqlOperation } from "aws-amplify";
 import { createContext, useContext } from "react";
-import { ListPatientsQuery, Patient } from "../API";
-import { listPatients } from "../graphql/queries";
+import {
+  ModelSortDirection,
+  Patient,
+  QueryPatientsByOwnerSortedCreatedAtQuery,
+  QueryPatientsByOwnerSortedCreatedAtQueryVariables,
+} from "../API";
+import { queryPatientsByOwnerSortedCreatedAt } from "../graphql/queries";
 import { FetchResponse, useFetch } from "./use-fetch";
 import { logger } from "../index";
 
@@ -15,6 +20,7 @@ export type User = {
   medicalRecordId: string | null;
   name?: string | null;
   avatarImageUrl?: string | null;
+  owner?: string | null;
 };
 
 type ProviderProps = FetchResponse<User | null> & {
@@ -40,6 +46,7 @@ const selectFetcher = async (): Promise<User | null> => {
       medicalRecordId: null,
       name: null,
       avatarImageUrl: null,
+      owner: null,
     };
   }
   return await fetcher();
@@ -65,11 +72,12 @@ const fetcher = async (): Promise<User | null> => {
     logger.info(`${profile.displayName} succeeded in to sign in for LINE.`);
     // Cognito認証処理
     const cognitoUser = await cognitoAuth(profile.userId);
+    const cognitoUserId = cognitoUser.getUsername();
     logger.info(
       `It succeeded in to sign in for Cognito.`,
-      `Cognito username: ${cognitoUser.getUsername()}`
+      `Cognito username: ${cognitoUserId}`
     );
-    const patient = await fetchPatient();
+    const patient = await fetchPatient(cognitoUserId);
     logger.info(
       `A medical record id that fetched is ${
         patient ? patient.medicalRecordId : "none"
@@ -80,6 +88,7 @@ const fetcher = async (): Promise<User | null> => {
       name: profile.displayName,
       avatarImageUrl: profile.pictureUrl ?? null,
       medicalRecordId: patient ? patient.medicalRecordId : null,
+      owner: cognitoUserId,
     };
   } catch (error) {
     logger.error(
@@ -142,20 +151,36 @@ const cognitoAuth = async (username: string): Promise<CognitoUser> => {
   }
 };
 
-const fetchPatient = async (): Promise<Patient | null> => {
+const fetchPatient = async (ownerId: string): Promise<Patient | null> => {
   // Graphql query操作実行
+  const variables: QueryPatientsByOwnerSortedCreatedAtQueryVariables = {
+    owner: ownerId,
+    sortDirection: ModelSortDirection.DESC,
+  };
   const result = (await API.graphql(
-    graphqlOperation(listPatients)
-  )) as GraphQLResult<ListPatientsQuery>;
+    graphqlOperation(queryPatientsByOwnerSortedCreatedAt, variables)
+  )) as GraphQLResult<QueryPatientsByOwnerSortedCreatedAtQuery>;
   if (
     !result.data ||
-    !result.data.listPatients ||
-    !result.data.listPatients.items
+    !result.data.queryPatientsByOwnerSortedCreatedAt ||
+    !result.data.queryPatientsByOwnerSortedCreatedAt.items
   ) {
     throw Error("It was returned null after the API had fetched data.");
   }
+  //   const result = (await API.graphql(
+  //     graphqlOperation(listPatients)
+  //   )) as GraphQLResult<ListPatientsQuery>;
+  //   if (
+  //     !result.data ||
+  //     !result.data.listPatients ||
+  //     !result.data.listPatients.items
+  //   ) {
+  //     throw Error("It was returned null after the API had fetched data.");
+  //   }
 
-  const patients = result.data.listPatients.items as Patient[];
+  const patients = result.data.queryPatientsByOwnerSortedCreatedAt
+    .items as Patient[];
+  logger.info("patients", patients);
   // LINEユーザー:cognitoユーザー:patientデータは 1:1:1 なので複数patientデータはエラー処理
   //   if (patients.length > 1) {
   //     throw Error("It was found two patients or over.");

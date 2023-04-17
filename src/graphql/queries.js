@@ -6,9 +6,9 @@ export const getPatient = /* GraphQL */ `
     getPatient(id: $id) {
       id
       medicalRecordId
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -22,9 +22,37 @@ export const listPatients = /* GraphQL */ `
       items {
         id
         medicalRecordId
+        owner
         createdAt
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const queryPatientsByOwnerSortedCreatedAt = /* GraphQL */ `
+  query QueryPatientsByOwnerSortedCreatedAt(
+    $owner: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPatientFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    queryPatientsByOwnerSortedCreatedAt(
+      owner: $owner
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        medicalRecordId
         owner
+        createdAt
+        updatedAt
       }
       nextToken
     }
